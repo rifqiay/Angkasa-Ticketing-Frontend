@@ -1,0 +1,901 @@
+body {
+  background: #f5f6fa;
+}
+.container {
+  display: block;
+}
+.bannerWrapper {
+  position: relative;
+}
+.banner {
+  position: absolute;
+  width: 100%;
+  height: 176px;
+}
+.banner2 {
+  display: none;
+}
+.contentWrapper {
+  position: relative;
+  top: 50px;
+  width: 100%;
+  height: 1550px;
+  margin-left: -230px;
+  /* border: 1px solid black; */
+}
+.contactDetail {
+  position: absolute;
+  left: 260px;
+  width: 789px;
+  height: 615px;
+}
+.contactText {
+  position: absolute;
+  left: 0;
+  top: -20px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  color: #ffffff;
+}
+.contactBox {
+  position: relative;
+  width: 789px;
+  height: 415px;
+  left: 0;
+  top: 80px;
+  background: #ffffff;
+  border-radius: 15px;
+}
+.textFullname {
+  position: absolute;
+  left: 25px;
+  top: 20px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #9b96ab;
+}
+.input1 {
+  position: absolute;
+  width: 733px;
+  height: 50px;
+  left: 25px;
+  top: 45px;
+  background: none;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: rgba(210, 194, 255, 0.68) 2px solid;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.emailText {
+  position: absolute;
+  left: 25px;
+  top: 120px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #9b96ab;
+}
+.input2 {
+  position: absolute;
+  width: 733px;
+  height: 50px;
+  left: 25px;
+  top: 145px;
+  background: none;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: rgba(210, 194, 255, 0.68) 2px solid;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.phoneText {
+  position: absolute;
+  left: 25px;
+  top: 220px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #9b96ab;
+}
+.sBtn {
+  position: absolute;
+  top: 260px;
+  left: 25px;
+  height: 25px;
+  width: 60px;
+  outline: none;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: 1px black solid;
+  border-bottom: none;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.input3 {
+  position: absolute;
+  width: 650px;
+  height: 50px;
+  left: 100px;
+  top: 245px;
+  background: none;
+  outline: none;
+  border: none;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.line {
+  position: absolute;
+  width: 733px;
+  height: 2px;
+  left: 25px;
+  top: 300px;
+  background: rgba(210, 194, 255, 0.68);
+}
+.sBtn option {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.warning {
+  position: relative;
+  width: 733px;
+  height: 50px;
+  left: 25px;
+  top: 330px;
+  background: rgba(242, 69, 69, 0.1);
+  border-radius: 10px;
+}
+.warningLogo {
+  position: absolute;
+  top: 13px;
+  left: 40px;
+  width: 21px;
+  height: 18px;
+}
+.warningText {
+  position: absolute;
+  left: 70px;
+  top: 0;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #595959;
+}
+.wrapperFlight {
+  position: relative;
+  left: 1150px;
+  width: 412px;
+  height: 575px;
+  /* border: 1px solid black; */
+}
+.flightDetailText {
+  position: absolute;
+  left: 0;
+  top: -30px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  color: #ffffff;
+}
+.viewDetailText {
+  position: absolute;
+  left: 300px;
+  top: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+}
+.fDetailBox {
+  position: relative;
+  width: 412px;
+  height: 375px;
+  left: -78px;
+  top: 75px;
+  background: #ffffff;
+  border-radius: 15px;
+}
+.airLinesLogo {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  height: 57px;
+  width: 350px;
+  /* border: 1px solid black; */
+}
+.imgLogo {
+  position: absolute;
+  width: 100px;
+  height: 57px;
+}
+.airLinesName {
+  position: absolute;
+  left: 120px;
+  top: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #595959;
+}
+.flightDestination {
+  position: absolute;
+  top: 100px;
+  left: 30px;
+  height: 170px;
+  width: 350px;
+  /* border: 1px solid black; */
+}
+.origin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: #000000;
+}
+.destIcon {
+  position: absolute;
+  top: 7px;
+  left: 150px;
+  width: 19px;
+  height: 18px;
+}
+.destina {
+  position: absolute;
+  left: 200px;
+  top: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: #000000;
+}
+.dateFlight {
+  position: absolute;
+  left: 0;
+  top: 50px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  color: #6b6b6b;
+}
+.ellipse {
+  position: absolute;
+  top: 55px;
+  left: 160px;
+  width: 5px;
+  height: 5px;
+  background: #6b6b6b;
+  border-radius: 50%;
+}
+.timeFlight {
+  position: absolute;
+  left: 200px;
+  top: 50px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  color: #6b6b6b;
+}
+.check {
+  position: absolute;
+  top: 100px;
+  width: 20px;
+  height: 20px;
+}
+.refund {
+  position: absolute;
+  left: 30px;
+  top: 98px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #2395ff;
+}
+.check2 {
+  position: absolute;
+  top: 140px;
+  width: 20px;
+  height: 20px;
+}
+.reschedule {
+  position: absolute;
+  left: 30px;
+  top: 140px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #2395ff;
+}
+.line2 {
+  position: absolute;
+  top: 180px;
+  left: -31px;
+  width: 413px;
+  height: 1px;
+  background: #6b6b6b;
+  border: none;
+}
+.payment {
+  position: relative;
+  top: 290px;
+}
+.paymentText {
+  position: absolute;
+  left: 30px;
+  top: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: #000000;
+}
+.price {
+  position: absolute;
+  left: 250px;
+  top: -10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  color: #2395ff;
+}
+.passengerWrapper {
+  position: relative;
+  width: 800px;
+  left: 260px;
+}
+.passengerText {
+  position: absolute;
+  left: 0px;
+  top: -20px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  color: #000000;
+}
+.passengerBox {
+  position: absolute;
+  width: 789px;
+  height: 515px;
+  left: 0;
+  top: 70px;
+  background: #ffffff;
+  border-radius: 15px;
+}
+.confirm {
+  position: relative;
+  width: 733px;
+  height: 50px;
+  left: 25px;
+  top: 20px;
+  background: rgba(35, 149, 255, 0.1);
+  border-radius: 10px;
+}
+.textConfirm {
+  position: absolute;
+  left: 25px;
+  top: 0;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  color: #595959;
+}
+.textConfirm2 {
+  position: absolute;
+  left: 500px;
+  top: 0;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  color: #595959;
+}
+.confirm input[type="checkbox"] {
+  position: relative;
+  top: 8px;
+  left: 660px;
+  width: 47px;
+  height: 25px;
+  -webkit-appearance: none;
+  background: #c6c6c6;
+  outline: none;
+  border-radius: 20px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: 1s;
+}
+.confirm input:checked[type="checkbox"] {
+  background: #03a9f4;
+}
+.confirm input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 23.5px;
+  height: 25px;
+  border-radius: 20px;
+  background: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: 1s;
+}
+.confirm input:checked[type="checkbox"]::before {
+  left: 23.5px;
+}
+.titleText {
+  position: absolute;
+  left: 30px;
+  top: 80px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #9b96ab;
+}
+.sBtn2 {
+  position: absolute;
+  top: 120px;
+  left: 30px;
+  height: 25px;
+  width: 60px;
+  outline: none;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: 1px black solid;
+  border-bottom: none;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.line3 {
+  position: absolute;
+  width: 733px;
+  height: 2px;
+  left: 25px;
+  top: 160px;
+  background: rgba(210, 194, 255, 0.68);
+}
+.sBtn2 option {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.passengerName {
+  position: absolute;
+  left: 30px;
+  top: 175px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #9b96ab;
+}
+.input4 {
+  position: absolute;
+  width: 733px;
+  height: 50px;
+  left: 25px;
+  top: 200px;
+  background: none;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: rgba(210, 194, 255, 0.68) 2px solid;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.nationalityText {
+  position: absolute;
+  left: 30px;
+  top: 270px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #9b96ab;
+}
+.sBtn3 {
+  position: absolute;
+  top: 310px;
+  left: 25px;
+  height: 25px;
+  width: 100px;
+  outline: none;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: 1px black solid;
+  border-bottom: none;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.line4 {
+  position: absolute;
+  width: 733px;
+  height: 2px;
+  left: 25px;
+  top: 350px;
+  background: rgba(210, 194, 255, 0.68);
+}
+.line8 {
+  position: absolute;
+  width: 733px;
+  height: 2px;
+  left: 25px;
+  top: 450px;
+  background: rgba(210, 194, 255, 0.68);
+}
+.sBtn3 option {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.passengerSeat {
+  position: absolute;
+  left: 30px;
+  top: 370px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #9b96ab;
+}
+.input5 {
+  position: absolute;
+  width: 733px;
+  height: 50px;
+  left: 25px;
+  top: 400px;
+  background: none;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: rgba(210, 194, 255, 0.68) 2px solid;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+.passengerText2 {
+  position: absolute;
+  left: 0px;
+  top: 650px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  color: #000000;
+}
+.passengerBox2 {
+  position: absolute;
+  width: 789px;
+  height: 150px;
+  left: 0px;
+  top: 750px;
+  background: #ffffff;
+  border-radius: 15px;
+}
+.passengerBox2 input {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 17px;
+  height: 17px;
+}
+.textInsurance {
+  position: absolute;
+  left: 60px;
+  top: 11px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  color: #000000;
+}
+.textPrice {
+  position: absolute;
+  left: 670px;
+  top: 10px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  color: #2395ff;
+}
+.textPrice span {
+  position: absolute;
+  left: 52px;
+  top: 5px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  color: #979797;
+}
+.textCompensation {
+  position: absolute;
+  left: 30px;
+  top: 85px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #000000;
+}
+.line5 {
+  position: absolute;
+  width: 789px;
+  height: 1px;
+  left: 0;
+  top: 75px;
+  background: #e6e6e6;
+  transform: matrix(1, 0, 0, -1, 0, 0);
+}
+.paymentBtn {
+  position: absolute;
+  width: 319px;
+  height: 57px;
+  left: 220px;
+  top: 1000px;
+  background: #2395ff;
+  box-shadow: 0px 8px 10px rgba(35, 149, 255, 0.3);
+  border-radius: 10px;
+  border: none;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffffff;
+}
+.footer {
+  margin-top: 250px;
+}
+
+@media only screen and (max-width: 600px) {
+  .banner {
+    display: none;
+  }
+  .banner2 {
+    display: block;
+    width: 100%;
+    height: 198px;
+  }
+  .wrapperFlight {
+    position: relative;
+    top: -200px;
+    left: 30px;
+    width: 90%;
+  }
+  .fDetailBox {
+    width: 100%;
+    height: 600px;
+  }
+  .flightDetailText {
+    position: absolute;
+    left: 30px;
+    top: -25px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    color: #ffffff;
+  }
+  .viewDetailText {
+    position: absolute;
+    left: 380px;
+    top: -10px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    color: #ffffff;
+  }
+  /* .airLinesLogo{
+        position: absolute;
+        top: 100px;
+        left: ;
+    }
+    .flightDestination{
+        position: absolute;
+        top: ;
+        left: ;
+    } */
+  .origin {
+    position: absolute;
+    top: -100px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    color: #000000;
+  }
+  .destIcon {
+    position: absolute;
+    top: -60px;
+    left: 230px;
+    width: 23px;
+    height: 22px;
+  }
+  .destina {
+    position: absolute;
+    width: 180px;
+    top: -100px;
+    left: 305px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    color: #000000;
+    /* border: 1px black solid; */
+  }
+  .airLinesName {
+    display: none;
+  }
+  .contactDetail {
+    display: none;
+  }
+  .contactText {
+    display: none;
+  }
+  .contactBox {
+    display: none;
+  }
+  .textFullname {
+    display: none;
+  }
+  .input1 {
+    display: none;
+  }
+  .emailText {
+    display: none;
+  }
+  .input2 {
+    display: none;
+  }
+  .phoneText {
+    display: none;
+  }
+  .sBtn {
+    display: none;
+  }
+  .input3 {
+    display: none;
+  }
+  .line {
+    display: none;
+  }
+  .warning {
+    display: none;
+  }
+  .warningLogo {
+    display: none;
+  }
+  .warningText {
+    display: none;
+  }
+  .passengerWrapper {
+    display: none;
+  }
+  .passengerText {
+    display: none;
+  }
+  .passengerBox {
+    display: none;
+  }
+  .confirm {
+    display: none;
+  }
+  .textConfirm {
+    display: none;
+  }
+  .textConfirm2 {
+    display: none;
+  }
+  .titleText {
+    display: none;
+  }
+  .sBtn2 {
+    display: none;
+  }
+  .line3 {
+    display: none;
+  }
+  .passengerName {
+    display: none;
+  }
+  .input4 {
+    display: none;
+  }
+  .nationalityText {
+    display: none;
+  }
+  .sBtn3 {
+    display: none;
+  }
+  .line4 {
+    display: none;
+  }
+  .passengerText2 {
+    display: none;
+  }
+  .passengerBox2 {
+    display: none;
+  }
+  .textInsurance {
+    display: none;
+  }
+  .textPrice {
+    display: none;
+  }
+  .line5 {
+    display: none;
+  }
+  .textCompensation {
+    display: none;
+  }
+  /* .paymentBtn{
+
+    } */
+}
