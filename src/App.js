@@ -40,7 +40,7 @@ function App() {
         </Routes>
       )}
       <ToastContainer />
-      {width >= 576 ? (
+      {width >= 350 ? (
         location.pathname === "/login" ||
         location.pathname === "/register" ? null : (
           <Footer />
