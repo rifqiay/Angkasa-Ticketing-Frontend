@@ -1,80 +1,62 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Logo from "../logo/Logo";
-
-import styles from "./footer.module.css";
-
 import facebook from "../../assets/facebook.svg";
 import instagram from "../../assets/instagram.svg";
 import twitter from "../../assets/twitter.svg";
 import youtube from "../../assets/youtube.svg";
-
+import appstore from "../../assets/appstore.png";
+import playstore from "../../assets/playstore.png";
+import blueflight from "../../assets/blueflight.png";
 import map from "../../assets/map-pin.svg";
 
-const Footer = ({ className }) => {
+const Footer = () => {
   return (
-    <div className={className}>
-      <div className={styles.footer}>
-        <div className={styles["footer-left"]}>
-          <div>
-            <Logo />
-            <p>
-              Find your flight and explore the world with us. We will take care
-              of the rest
-            </p>
-          </div>
-
-          <div>
-            <span className={styles.cr}>©Ankasa. All Rights Reserved.</span>
-          </div>
-        </div>
-
-        <div className={styles["footer-mid"]}>
-          <p className={styles.subtitle}>Features</p>
-          <div>
-            <Link to="/ticket" className={styles.feature}>
-              <p>Find Ticket</p>
-            </Link>
-            <Link to="/booking" className={styles.feature}>
-              <p>My Booking</p>
-            </Link>
-            <Link to="/chat" className={styles.feature}>
-              <p>Chat</p>
-            </Link>
-            <Link to="/notification" className={styles.feature}>
-              <p>Notification</p>
-            </Link>
-          </div>
-        </div>
-
-        <div className={styles["footer-right"]}>
-          <div>
-            <p className={styles.subtitle}>Follow Us</p>
-            <div className={styles.contacts}>
-              <div>
-                <img src={facebook} alt="" />
+    <>
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-lg-3 mt-3">
+            <div>
+              <div className="d-flex">
+                <img src={blueflight} alt="" />
+                <h5 className="ms-3">Angkasa</h5>
               </div>
-              <div>
-                <img src={twitter} alt="" />
-              </div>
-              <div>
-                <img src={instagram} alt="" />
-              </div>
-              <div>
-                <img src={youtube} alt="" />
-              </div>
+              <p className="mt-3">
+                Find your flight and explore the world with us, we will take
+                care of the rest
+              </p>
             </div>
           </div>
-
-          <div className={styles.location}>
-            <div className={styles["location-icon"]}>
+          <div className="col-lg-3 mt-3">
+            <h5>Features</h5>
+            <h6 className="mt-3">Find Ticket</h6>
+            <h6>My Booking</h6>
+            <h6>Chat</h6>
+            <h6>Notification</h6>
+          </div>
+          <div className="col-lg-3 mt-3">
+            <h5>Donwload Angkasa App</h5>
+            <img src={appstore} className="my-3" alt="" />
+            <img src={playstore} alt="" />
+          </div>
+          <div className="col-lg-3 mt-3">
+            <h5>Follow Us</h5>
+            <div>
+              <img src={facebook} alt="" />
+              <img src={twitter} className="mx-3" alt="" />
+              <img src={instagram} alt="" />
+              <img src={youtube} className="mx-3" alt="" />
+            </div>
+          </div>
+        </div>
+        <div className="row mt-3">
+          <div className="d-flex justify-content-between">
+            <p>&copy; Angkasa. All Rights Reserved.</p>
+            <div>
               <img src={map} alt="" />
+              <span>Jakarta Indonesia</span>
             </div>
-            <span>Jakarta, Indonesia</span>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

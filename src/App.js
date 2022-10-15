@@ -26,7 +26,7 @@ function App() {
   const { height, width } = useWindowDimensions();
   return (
     <ScrollToTop>
-      {width >= 576 ? (
+      {width >= 350 ? (
         <Routes>
           <Route path="/" element={<Navigate to="/home" replace="true" />} />
           <Route path="/home" element={<Home />} />

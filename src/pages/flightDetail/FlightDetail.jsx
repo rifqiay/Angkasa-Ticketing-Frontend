@@ -1,188 +1,193 @@
 import React, { useState, useEffect } from "react";
 import styles from "./flightDetail.module.css";
 import Banner from "../../assets/img1.png";
-import Banner2 from "../../assets/banner.png";
-// import Input from "../../components/base/input/index";
 import WarningLogo from "../../assets/warning.png";
-import LogoGaruda from "../../assets/garuda-indonesia.svg";
 import Destination from "../../assets/dst.png";
 import Check from "../../assets/check.png";
-import Button from "../../components/button/index";
+import Garuda from "../../assets/garuda-indonesia.svg";
 import Footer from "../../components/footer/Footer";
 
 const FlightDetail = () => {
-  const [add, setAdd] = useState(true);
-  const onGroup = () => {
-    if (add) {
-      setAdd(true);
-    } else {
-      setAdd(false);
-    }
-  };
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.bannerWrapper}>
-          <img className={styles.banner} src={Banner} alt="banner" />
-          <img src={Banner2} className={styles.banner2} alt="banner" />
-        </div>
-        <div className={`${styles.contentWrapper}`}>
-          <div className={styles.contactDetail}>
-            <p className={styles.contactText}>Contact Person Detail</p>
-            <form>
-              <div className={styles.contactBox}>
-                <p className={styles.textFullname}>Full Name</p>
+      <div className="container-fluid">
+        <img src={Banner} className={`img-fluid ${styles.banner}`} alt="" />
+      </div>
+      <div className={`container ${styles.contact}`}>
+        <div className="row">
+          {/* contact person detail */}
+          <div className="col-lg-7">
+            <h3 className={`my-3 ${styles.tres}`}>Contact Person Detail</h3>
+            <div className="card p-3">
+              <div>
+                <label for="fullname" className="ms-2 mb-1">
+                  Fullname
+                </label>
                 <input
                   type="text"
-                  className={styles.input1}
                   placeholder="Insert Full Name"
-                  disabled
+                  className="w-100 p-2"
+                  id="fullname"
                 />
-                <p className={styles.emailText}>Email</p>
+              </div>
+              <div className="mt-2">
+                <label for="email" className="ms-2 mb-1">
+                  Email
+                </label>
                 <input
                   type="email"
-                  className={styles.input2}
-                  placeholder="Insert Your Email"
-                  disabled
+                  placeholder="Insert your Email"
+                  className="w-100 p-2"
+                  id="email"
                 />
-                <p className={styles.phoneText}>Phone Number</p>
-                <select className={styles.sBtn} name="phone" id="phoneNumber">
-                  <option value="+62">+62</option>
-                  <option value="+1">+1</option>
-                  <option value="+2">+2</option>
-                  <option value="+3">+3</option>
-                  <option value="+4">+4</option>
-                  <option value="+5">+5</option>
+              </div>
+              <div className="mt-2">
+                <label for="phone" className="ms-2 mb-1">
+                  Phone Number
+                </label>
+                <input
+                  type="text"
+                  placeholder="Insert Your Phone Number"
+                  className="w-100 p-2"
+                  id="phone"
+                />
+              </div>
+              <div
+                className={`${styles.warning} mt-4 d-flex align-items-center`}
+              >
+                <div className="ms-4">
+                  <img src={WarningLogo} alt="" />
+                  <span className="ms-2">
+                    Make sure the customer data is correct.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* ticket */}
+          <div className="col">
+            <div className="d-flex justify-content-between align-items-center my-3">
+              <h3 className={styles.tres}>Flight Details</h3>
+              <h5 className={styles.tres}>View Details</h5>
+            </div>
+            <div className="card p-3">
+              <div className="d-flex align-items-center">
+                <img src={Garuda} alt="" />
+                <h5 className="ms-3">Garuda Indonesia</h5>
+              </div>
+              <div className="d-flex justify-content-evenly my-4">
+                <h5>Medan (IND)</h5>
+                <div>
+                  <img src={Destination} alt="" />
+                </div>
+                <h5>Tokyo (JPN)</h5>
+              </div>
+              <div>
+                <strong>Sunday, 15 August 2020 . 12:33 - 15:21</strong>
+              </div>
+              <div className="mt-4">
+                <img src={Check} alt="" />
+                <strong className="text-primary ms-1">Refundable</strong>
+              </div>
+              <div className="mt-2">
+                <img src={Check} alt="" />
+                <strong className="text-primary ms-1">Can reschedule</strong>
+              </div>
+              <hr />
+              <div className="d-flex justify-content-between">
+                <h4>Total Payment</h4>
+                <h3 className="text-primary">$ 145,00</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* passenger details */}
+        <div className="row mt-3">
+          <div className="col-lg-7">
+            <h3>Passenger Details</h3>
+            <div className="card p-3">
+              <div className="d-flex justify-content-between">
+                <span>Passenger: Adult</span>
+                <div className="d-flex">
+                  <span className="mx-1">Same as contact person</span>
+                  <label class={`${styles.togglerwrapper} ${styles.style1}`}>
+                    <input type="checkbox" />
+                    <div class={styles.togglerslider}>
+                      <div class={styles.togglerknob}></div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <label className="mt-3 mb-1">Title</label>
+              <div className="input-group flex-nowrap">
+                <select name="title" id="title" required>
+                  <option value="Mr.">Mr.</option>
+                  <option value="Mrs.">Mrs.</option>
                 </select>
                 <input
-                  type="number"
-                  className={styles.input3}
-                  placeholder="Insert Your Phone Number"
-                  disabled
+                  type="text"
+                  className="form-control p-2"
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="addon-wrapping"
                 />
-                <div className={styles.line}></div>
-                <div className={styles.warning}>
-                  <img
-                    src={WarningLogo}
-                    alt="warning"
-                    className={styles.warningLogo}
-                  />
-                  <p className={styles.warningText}>
-                    Make sure the customer data is correct.
-                  </p>
-                </div>
               </div>
-            </form>
-          </div>
-          <div className={styles.wrapperFlight}>
-            <p className={styles.flightDetailText}>Flight Detail</p>
-            <i className={styles.viewDetailText}>View Detail</i>
-            <div className={styles.fDetailBox}>
-              <div className={styles.airLinesLogo}>
-                <img className={styles.imgLogo} src={LogoGaruda} alt="logo" />
-                <p className={styles.airLinesName}>'Garuda Indonesia'</p>
+              <div className="mt-3">
+                <label for="fullname" className="mb-1">
+                  Full Name
+                </label>
+                <input
+                  type="text "
+                  placeholder="Insert Your Full Name"
+                  id="fullname"
+                  className="w-100 p-2"
+                />
               </div>
-              <div className={styles.flightDestination}>
-                <p className={styles.origin}>'Indonesia'</p>
-                <img className={styles.destIcon} src={Destination} alt="" />
-                <p className={styles.destina}>JAPAN </p>
-                <p className={styles.dateFlight}>sunday, 15 agustus 2020</p>
-                <div className={styles.ellipse}></div>
-                <p className={styles.timeFlight}>departur date</p>
-                <div>
-                  <img className={styles.check} src={Check} alt="" />
-                  <p className={styles.refund}>Refundable</p>
-                  <img className={styles.check2} src={Check} alt="" />
-                  <p className={styles.reschedule}>Can reschedule</p>
-                </div>
-                <div className={styles.line2}></div>
-              </div>
-              <div className={styles.payment}>
-                <p className={styles.paymentText}>Total Payment</p>
-                <p className={styles.price}>500</p>
+              <label className="mt-3 mb-1">Nationality</label>
+              <div className="input-group flex-nowrap">
+                <select name="national" id="national" required>
+                  <option value="indonesia">Indonesia</option>
+                  <option value="japan">Japan</option>
+                </select>
+                <input
+                  type="text"
+                  className="form-control p-2"
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="addon-wrapping"
+                />
               </div>
             </div>
           </div>
-          <form>
-            <div className={styles.passengerWrapper}>
-              <p className={styles.passengerText}>Passenger Details</p>
-              <div className={styles.passengerBox}>
-                <div className={styles.confirm}>
-                  <p className={styles.textConfirm}>Passenger: 1 Adult</p>
-                  <p className={styles.textConfirm2}>Same as contact person</p>
-                  <input type="checkbox" onClick={() => onGroup()} />
-                </div>
-                {add ? (
-                  <>
-                    <p p className={styles.titleText}>
-                      Title
-                    </p>
-                    <select
-                      className={styles.sBtn2}
-                      name="title"
-                      id="title"
-                      required
-                    >
-                      <option value="Mr.">Mr.</option>
-                      <option value="Mrs.">Mrs.</option>
-                    </select>
-                    <div className={styles.line3}></div>
-                    <p className={styles.passengerName}>Full Name</p>
-                    <input
-                      name="fullname"
-                      type="text"
-                      className={styles.input4}
-                      placeholder="Insert Your Name"
-                      required
-                    />
-                    <p className={styles.nationalityText}>Nationality</p>
-                    <select
-                      className={styles.sBtn3}
-                      name="nationality"
-                      id="ntionality"
-                      required
-                    >
-                      <option value="Indonesia">Indonesia</option>
-                      <option value="Norwey">Norwey</option>
-                      <option value="Iceland">Iceland</option>
-                      <option value="Switzerland">Switzerland</option>
-                      <option value="Sweden">Sweden</option>
-                      <option value="Finland">Finland</option>
-                    </select>
-                    <div className={styles.line4}></div>
-                    <p className={styles.passengerSeat}>Seat</p>
-                    <input
-                      type="number"
-                      name="totalorder"
-                      className={styles.input5}
-                      placeholder="Insert How many seat"
-                      required
-                    />
-                  </>
-                ) : null}
-              </div>
-              <p className={styles.passengerText2}>Passenger Details</p>
-              <div className={styles.passengerBox2}>
-                <input type="checkbox" />
-                <p className={styles.textInsurance}>Travel Insurance</p>
-                <p className={styles.textPrice}>
-                  $ 200<span>/pax</span>
-                </p>
-                <div className={styles.line5}></div>
-                <p className={styles.textCompensation}>
-                  Get travel compensation $ 10.000,00
-                </p>
-              </div>
-              <Button
-                className={styles.paymentBtn}
-                type="submit"
-                title="Proceed to Payment"
-              />
-            </div>
-          </form>
         </div>
-        <Footer className={styles.footer} />
+        {/* passenger detail */}
+        <div className="row mt-3">
+          <div className="col-lg-7">
+            <h4>Passenger Details</h4>
+            <div className="card p-3">
+              <div className="d-flex justify-content-between">
+                <div>
+                  <input type="checkbox" id="insurance" />
+                  <label for="insurance" className="ms-2">
+                    Travel Insurance
+                  </label>
+                </div>
+                <h5 className="text-primary">
+                  $2,00<span className="text-secondary">/pax</span>
+                </h5>
+              </div>
+              <hr />
+              <strong>Get travel compensation up to $ 10.000,00</strong>
+            </div>
+            <div className="d-flex justify-content-center">
+              <button className="btn btn-primary w-50 mt-4">
+                Proceed to Payment
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+      <Footer />
     </>
   );
 };
