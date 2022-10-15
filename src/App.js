@@ -5,12 +5,12 @@ import Home from "../src/pages/home/Home";
 import Login from "../src/pages/auth/login/Login";
 import PageNotFound from "../src/pages/PageNotFound/PageNotFound.jsx";
 import Register from "../src/pages/auth/register/Register";
-
-// components
+import SearchFlight from "./pages/search-result/SearchResult";
+import FlightDetail from "./pages/flightDetail/FlightDetail";
 import ScrollToTop from "./component/ScrollToTop";
 import useWindowDimensions from "./component/WindowsSize";
 import PageDeviceNotSupported from "./component/PageDeviceNotSupported";
-import Footer from "../src/component/footer";
+import Footer from "../src/components/footer/Footer";
 import Navbar from "../src/component/navbar";
 
 //modules
@@ -22,14 +22,7 @@ function App() {
   const { height, width } = useWindowDimensions();
   return (
     <ScrollToTop>
-      {width >= 576 ? (
-        location.pathname === "/login" ||
-        location.pathname === "/register" ? null : (
-          <Navbar />
-        )
-      ) : null}
-
-      {width >= 576 ? (
+      {width >= 350 ? (
         <Routes>
           <Route path="/" element={<Navigate to="/home" replace="true" />} />
           <Route path="/home" element={<Home />} />
@@ -38,6 +31,8 @@ function App() {
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/search" element={<SearchFlight />} />
+          <Route path="/detail/:id" element={<FlightDetail />} />
         </Routes>
       ) : (
         <Routes>
@@ -45,7 +40,7 @@ function App() {
         </Routes>
       )}
       <ToastContainer />
-      {width >= 576 ? (
+      {width >= 350 ? (
         location.pathname === "/login" ||
         location.pathname === "/register" ? null : (
           <Footer />

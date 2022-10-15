@@ -1,0 +1,74 @@
+.warning {
+  background-color: #f5bebe;
+  height: 51px;
+  border-radius: 10px;
+}
+.banner {
+  display: none;
+}
+.togglerwrapper {
+  display: block;
+  width: 45px;
+  height: 25px;
+  cursor: pointer;
+  position: relative;
+}
+
+.togglerwrapper input[type="checkbox"] {
+  display: none;
+}
+
+.togglerwrapper input[type="checkbox"]:checked + .togglerslider {
+  background-color: #2395ff;
+}
+
+.togglerwrapper .togglerslider {
+  background-color: #ccc;
+  position: absolute;
+  border-radius: 100px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.togglerwrapper .togglerknob {
+  position: absolute;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.togglerwrapper.style1
+  input[type="checkbox"]:checked
+  + .togglerslider
+  .togglerknob {
+  left: calc(100% - 19px - 3px);
+}
+
+.togglerwrapper.style1 .togglerknob {
+  width: calc(25px - 6px);
+  height: calc(25px - 6px);
+  border-radius: 50%;
+  left: 3px;
+  top: 3px;
+  background-color: #fff;
+}
+@media only screen and (min-width: 600px) {
+  .contact {
+    position: relative;
+    top: -125px;
+  }
+  .banner {
+    display: block;
+  }
+  .tres {
+    color: white !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .tres {
+    color: black !important;
+  }
+}
