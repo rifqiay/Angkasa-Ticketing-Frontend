@@ -1,0 +1,15 @@
+.box1 {
+	@apply
+  items-center
+  justify-center
+	row-span-2
+  mx-4;
+}
+
+.box2 {
+	@apply
+  items-center
+  justify-center
+	row-span-2 col-start-2 col-span-3
+  mx-2;
+}
