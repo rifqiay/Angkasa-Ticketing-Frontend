@@ -5,7 +5,6 @@ import WarningLogo from "../../assets/warning.png";
 import Destination from "../../assets/dst.png";
 import Check from "../../assets/check.png";
 import Garuda from "../../assets/garuda-indonesia.svg";
-import Footer from "../../components/footer/Footer";
 
 const FlightDetail = () => {
   return (
@@ -187,7 +186,6 @@ const FlightDetail = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

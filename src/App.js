@@ -10,7 +10,7 @@ import FlightDetail from "./pages/flightDetail/FlightDetail";
 import ScrollToTop from "./component/ScrollToTop";
 import useWindowDimensions from "./component/WindowsSize";
 import PageDeviceNotSupported from "./component/PageDeviceNotSupported";
-import Footer from "../src/component/footer";
+import Footer from "../src/components/footer/Footer";
 import Navbar from "../src/component/navbar";
 
 //modules

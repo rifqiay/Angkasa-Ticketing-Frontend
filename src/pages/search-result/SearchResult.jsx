@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import Footer from "../../components/footer/Footer";
 import styles from "./searchFlight.module.css";
 import iconflight from "../../assets/iconflight.png";
 import wifiIcon from "../../assets/wifi.svg";
@@ -423,8 +422,6 @@ const SearchFlight = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 };
