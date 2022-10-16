@@ -44,12 +44,54 @@ const Mybooking = () => {
         </div>
       </div>
       <div className="my-4 col-8">
-        <div className='py-3 text-center bg-white rounded mb-4'>2</div>
-        <div className='py-3 text-center bg-white rounded my-4'>2</div>
-        <div className='py-3 text-center bg-white rounded my-4'>2</div>
+        <div className='py-3 text-center bg-white rounded mb-4'>
+          <div className='col-12 text-start text-blue-400 mx-4 my-1' style={{ letterSpacing: '5px'}}>MY BOOKING</div>
+          <div className='row mx-3'>
+            <div className='col-6 text-start font-bold text-3xl'>My Booking</div>
+            <div className='col-6 text-end text-blue-400 font-bold text-lg my-1'>Order History</div>
+          </div>
+        </div>
+        <div className='py-3 text-center bg-white rounded my-4'>
+          <p className="col-12 text-start mx-4 my-2">Monday, 20 July ‘20 - 12:33</p>
+          <div className='row mx-3'>
+            <div className='col-1 text-start text-2xl font-bold'>IDN</div>
+            <div className='col-1 my-2'>
+              <img src='images/Vector.svg' width={28} height={27} />
+            </div>
+            <div className='col-10 text-start text-2xl font-bold'>JPN</div>
+          </div>
+          <p className="col-12 text-start text-gray-400 mx-4">Garuda Indonesia, AB-221</p>
+          <hr className="my-3" />
+          <div className="row mx-3">
+            <div className="col-1 my-1 text-start text-lg font-semibold">Status</div>
+            <div className="col-3 text-center">
+              <div className="bg-orange-500 rounded p-2 mr-2 text-white">Waiting for payment</div>
+            </div>
+            <div className="col-8 my-1 text-end text-lg text-blue-400 font-semibold "><a href="#">View Details</a></div>
+          </div>
+        </div>
+        <div className='py-3 text-center bg-white rounded my-4'>
+          <p className="col-12 text-start mx-4 my-2">Monday, 20 July ‘20 - 12:33</p>
+          <div className='row mx-3'>
+            <div className='col-1 text-start text-2xl font-bold'>IDN</div>
+            <div className='col-1 my-2'>
+              <img src='images/Vector.svg' width={28} height={27} />
+            </div>
+            <div className='col-10 text-start text-2xl font-bold'>JPN</div>
+          </div>
+          <p className="col-12 text-start text-gray-400 mx-4">Garuda Indonesia, AB-221</p>
+          <hr className="my-3" />
+          <div className="row mx-3">
+            <div className="col-1 my-1 text-start text-lg font-semibold">Status</div>
+            <div className="col-3 text-center">
+              <div className="bg-green-500 rounded p-2 mr-2 text-white">E-Ticket issued</div>
+            </div>
+            <div className="col-8 my-1 text-end text-lg text-blue-400 font-semibold "><a href="#">View Details</a></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 };
 
-export default Mybooking;
+export default Mybooking; 
