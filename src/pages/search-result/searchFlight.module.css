@@ -1,0 +1,42 @@
+.wrapperfrom {
+  position: relative;
+  top: -20px;
+}
+.wrapper {
+  position: relative;
+  top: -100px;
+}
+.label {
+  font-weight: bold;
+  color: white;
+}
+.input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  color: white;
+}
+.input2 {
+  text-align: end;
+}
+.input:focus {
+  outline: none;
+}
+.res {
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  .banner {
+    height: 150px !important;
+    width: 100% !important;
+  }
+  .selectclass {
+    font-size: small !important;
+  }
+  .r {
+    display: none !important;
+  }
+  .res {
+    display: block !important;
+  }
+}
