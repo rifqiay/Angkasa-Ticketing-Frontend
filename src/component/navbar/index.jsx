@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-
+import style from "./navbar.module.css";
 import { getProfileUser } from "../../app/redux/Slice/ProfileUserSlice";
 
 import Button from "react-bootstrap/Button";
@@ -103,7 +103,7 @@ const NavBar = () => {
   const pictureThumbnails = (
     <span>
       <img
-        className="pictureThumbnails"
+        className={style.imageProfile}
         referrerPolicy="no-referrer"
         src={
           // user_picture === null || user_picture === undefined
