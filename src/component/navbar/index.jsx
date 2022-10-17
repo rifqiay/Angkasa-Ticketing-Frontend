@@ -1,6 +1,11 @@
 import React, { useState, Fragment, useEffect } from "react";
-
+import Modal from "react-bootstrap/Modal";
 import logo from "../../assets/images/logo_navbar.png";
+import switchIcon from "../../assets/images/icons/switchBlue.svg";
+import oneway from "../../assets/images/icons/oneway.svg";
+import round from "../../assets/images/icons/roundtrip.svg";
+import arrow from "../../assets/images/icons/arrow.svg";
+import styles from "./navbar.module.css";
 import {
   useNavigate,
   useSearchParams,
@@ -9,7 +14,7 @@ import {
 } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-
+import style from "./navbar.module.css";
 import { getProfileUser } from "../../app/redux/Slice/ProfileUserSlice";
 
 import Button from "react-bootstrap/Button";
@@ -27,6 +32,9 @@ const NavBar = () => {
 
   const navigate = useNavigate();
 
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const [trip, setTrip] = useState("");
   const dispatch = useDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -103,7 +111,7 @@ const NavBar = () => {
   const pictureThumbnails = (
     <span>
       <img
-        className="pictureThumbnails"
+        className={style.imageProfile}
         referrerPolicy="no-referrer"
         src={
           // user_picture === null || user_picture === undefined
@@ -492,7 +500,170 @@ const NavBar = () => {
                             </div>
                           </Form>
                         </div>
-                        <div className="col-xl-4 col-lg-4 d-flex">
+                        <div className="col-xl-4 col-lg-3 d-flex">
+                          <div className="col-6 d-grid px-2">
+                            <Button
+                              variant="warning"
+                              onClick={handleShow}
+                              className=" rounded-pill block "
+                              type="button"
+                            >
+                              <p className="my-auto text-light">Find Ticket</p>
+                            </Button>
+                            <Modal
+                              show={show}
+                              id="exampleModal"
+                              onHide={handleClose}
+                              className={styles["modal-wrap"]}
+                            >
+                              <Modal.Body className={styles.modal}>
+                                <div className={styles["modal-header"]}>
+                                  <span>Hey,</span>
+                                  <p>Where you want to go?</p>
+                                </div>
+
+                                <div className={styles["modal-detail"]}>
+                                  <div>
+                                    <span>From</span>
+                                    <span>To</span>
+                                  </div>
+
+                                  <div>
+                                    <input
+                                      name="origin"
+                                      type="text"
+                                      className={styles.origin}
+                                      // onChange={(e) => setOrigin(e.target.value)}
+                                      required
+                                    />
+                                    <img src={switchIcon} alt="" />
+                                    <input
+                                      type="text"
+                                      className={styles.dest}
+                                      //  onChange={(e) => setDestination(e.target.value)}
+                                      required
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className={styles["modal-trip"]}>
+                                  <button
+                                    name="trip"
+                                    onClick={() => setTrip("oneway")}
+                                  >
+                                    <div>
+                                      <img src={oneway} alt="" />
+                                      <span>One way</span>
+                                    </div>
+                                  </button>
+
+                                  <button
+                                    name="trip"
+                                    onClick={() => setTrip("round")}
+                                  >
+                                    <div>
+                                      <img src={round} alt="" />
+                                      <span>Round trip</span>
+                                    </div>
+                                  </button>
+                                </div>
+
+                                <div className={styles["modal-ticket"]}>
+                                  <p>Departure</p>
+                                  <input
+                                    type="date"
+                                    name="departure"
+                                    placeholder="dd-mm-yyyy"
+                                    min="1997-01-01"
+                                    max="2030-12-31"
+                                    className={styles.date}
+                                    // onChange={(e) => {
+                                    //   setDate(e.target.value);
+                                    // }}
+                                  />
+
+                                  <p>How many person?</p>
+                                  <div>
+                                    <select
+                                      name="child"
+                                      id="child"
+                                      className={styles.ticket}
+                                      // onChange={(e) => {
+                                      //   setChild(e.target.value);
+                                      // }}
+                                    >
+                                      <option value="1">1 Child</option>
+                                      <option value="2">2 Child</option>
+                                      <option value="3">3 Child</option>
+                                      <option value="4">4 Child</option>
+                                    </select>
+
+                                    <select
+                                      name="adult"
+                                      id="adult"
+                                      className={styles.ticket}
+                                      // onChange={(e) => {
+                                      //   setAdult(e.target.value);
+                                      // }}
+                                    >
+                                      <option value="1">1 Adult</option>
+                                      <option value="2">2 Adult</option>
+                                      <option value="3">3 Adult</option>
+                                      <option value="4">4 Adult</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div className={styles["modal-ticket-type"]}>
+                                  <p>Which class do you want?</p>
+                                  <div>
+                                    <div>
+                                      <input
+                                        id="economy"
+                                        value="economy"
+                                        type="radio"
+                                        name="class"
+                                        //  onClick={(e) => setTicketType(e.target.value)}
+                                      />
+                                      <label htmlFor="economy">Economy</label>
+                                    </div>
+
+                                    <div>
+                                      <input
+                                        id="business"
+                                        value="business"
+                                        type="radio"
+                                        name="class"
+                                        //  onClick={(e) => setTicketType(e.target.value)}
+                                      />
+                                      <label htmlFor="business">Business</label>
+                                    </div>
+
+                                    <div>
+                                      <input
+                                        id="firstClass"
+                                        value="firstClass"
+                                        type="radio"
+                                        name="class"
+                                        // onClick={(e) => setTicketType(e.target.value)}
+                                      />
+                                      <label htmlFor="firstClass">
+                                        First Class
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <button
+                                  className={styles["modal-btn"]}
+                                  //   onClick={() => handleSearchFlight(origin, destination)}
+                                >
+                                  <span>SEARCH FLIGHT</span>
+                                  <img src={arrow} alt="" />
+                                </button>
+                              </Modal.Body>
+                            </Modal>
+                          </div>
                           <div className="col-6 d-grid px-2">
                             <Button
                               variant="warning"
@@ -503,7 +674,7 @@ const NavBar = () => {
                               className=" rounded-pill block "
                               type="button"
                             >
-                              <p className="my-auto text-light">Login</p>
+                              <p className="my-auto text-light">My Booking</p>
                             </Button>
                           </div>
                           <div className="col-6 d-grid">
