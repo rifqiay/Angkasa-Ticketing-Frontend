@@ -23,6 +23,12 @@ function App() {
   return (
     <ScrollToTop>
       {width >= 350 ? (
+        location.pathname === "/login" ||
+        location.pathname === "/register" ? null : (
+          <Navbar />
+        )
+      ) : null}
+      {width >= 350 ? (
         <Routes>
           <Route path="/" element={<Navigate to="/home" replace="true" />} />
           <Route path="/home" element={<Home />} />

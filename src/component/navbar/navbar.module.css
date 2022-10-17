@@ -1,3 +1,7 @@
+.imageProfile {
+  width: 47px;
+}
+
 .navi {
   display: flex;
   justify-content: space-between;
