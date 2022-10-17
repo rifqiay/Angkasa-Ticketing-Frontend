@@ -7,6 +7,7 @@ import PageNotFound from "../src/pages/PageNotFound/PageNotFound.jsx";
 import Register from "../src/pages/auth/register/Register";
 import SearchFlight from "./pages/search-result/SearchResult";
 import FlightDetail from "./pages/flightDetail/FlightDetail";
+import Profile from "../src/pages/profile/Profile.jsx";
 import ScrollToTop from "./component/ScrollToTop";
 import useWindowDimensions from "./component/WindowsSize";
 import PageDeviceNotSupported from "./component/PageDeviceNotSupported";
@@ -34,7 +35,7 @@ function App() {
           <Route path="/home" element={<Home />} />
 
           <Route path="*" element={<PageNotFound />} />
-
+          <Route path="/profile" element={<Profile />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/search" element={<SearchFlight />} />
