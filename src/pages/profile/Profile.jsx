@@ -1,7 +1,181 @@
-import React from "react";
-
+import React, { Fragment } from "react";
+import styles from "./profile.module.css";
+import UserLogo from "../../assets/images/profile/user.png";
+import Setting from "../../assets/images/profile/setting.png";
+import Rating from "../../assets/images/profile/rating.png";
+import LogOut from "../../assets/images/profile/logOut.png";
+import ImageProfile from "../../assets/images/profile/profile.png";
 const Profile = () => {
-  return <div>Profile</div>;
+  return (
+    <Fragment>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-4 mt-4">
+            <div className={styles.sect1}>
+              <div className=" text-center">
+                <img src={ImageProfile} alt="imageProfile" />
+                <div className="mt-3"></div>
+                <button type="button" class="btn btn-outline-primary">
+                  Select Photo
+                </button>
+                <h3 className="mt-4">Rifqi Ahmad Pratama</h3>
+                <p>Bandung, Indonesia</p>
+              </div>
+
+              <div className="row justify-content-between">
+                <div className="col-3">
+                  <h5>Cards</h5>
+                </div>
+                <div className="col-3">
+                  <h5>+Add</h5>
+                </div>
+              </div>
+
+              <div className="card">
+                <div className="card-body bg-primary text-white">
+                  <p>4441 1235 5512 5551</p>
+                  <div className="row justify-content-between">
+                    <div className="col-6">
+                      <h5>X Card</h5>
+                    </div>
+                    <div className="col-6">
+                      <h5>& 1,440.2</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className=" row justify-content-center mt-4">
+                <div className="col-4">
+                  <img src={UserLogo} alt="userlogo" />
+                </div>
+                <div className="col-4">
+                  <p className="ms-2">Profile</p>
+                </div>
+              </div>
+              <div className=" row justify-content-center mt-4">
+                <div className="col-4">
+                  <img src={Rating} alt="userlogo" />
+                </div>
+                <div className="col-4">
+                  <p className="ms-2">My Review</p>
+                </div>
+              </div>
+              <div className=" row justify-content-center mt-4">
+                <div className="col-4">
+                  <img src={Setting} alt="userlogo" />
+                </div>
+                <div className="col-4">
+                  <p className="ms-2">Settings</p>
+                </div>
+              </div>
+              <div className=" row justify-content-center mt-4">
+                <div className="col-4">
+                  <img src={LogOut} alt="userlogo" />
+                </div>
+                <div className="col-4">
+                  <p className="ms-2">Logout</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-lg-8 mt-4">
+            <div className={styles.sect2}>
+              <p className={styles.text}>Profile</p>
+              <p className={styles.text2}>Profile</p>
+              <div className={styles.formSheet}>
+                <div className={styles.contact}>
+                  <p className={styles.contactText}>Contact</p>
+                  <label htmlFor="email" className={styles.label}>
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    className={styles.input}
+                    // value={data.email}
+                    //   onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Insert Your Email"
+                    disabled
+                  />
+                  <label htmlFor="phone_number" className={styles.label}>
+                    Phone Number
+                  </label>
+                  <input
+                    id="phone_number"
+                    type="number"
+                    // value={phone_number}
+                    // onChange={(e) => setPhone_number(e.target.value)}
+                    name="phone_number"
+                    className={styles.input}
+                    placeholder="Insert Your Phone Number"
+                  />
+                  <p className={styles.settingText}>{"Account Setting >"}</p>
+                </div>
+                <div className={styles.biodata}>
+                  <p className={styles.biodataText}>Biodata</p>
+                  <label htmlFor="username" className={styles.label}>
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    // value={username || ""}
+                    // onChange={(e) => setUsername(e.target.value)}
+                    className={styles.input}
+                    placeholder="Insert Your Name"
+                  />
+                  <label htmlFor="city" className={styles.city}>
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    name="city"
+                    id="city"
+                    // value={citys}
+                    // onChange={(e) => setCity(e.target.value)}
+                    className={styles.input}
+                    placeholder="Insert Your City"
+                  />
+                  <label htmlFor="address" className={styles.label}>
+                    Adress
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    className={styles.input}
+                    // value={address}
+                    // onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Insert Your Adress"
+                  />
+                  <label htmlFor="postcode" className={styles.label}>
+                    Zip Coder
+                  </label>
+                  <input
+                    type="number"
+                    id="postcode"
+                    className={styles.input}
+                    name="post_code"
+                    // value={post_code}
+                    // onChange={(e) => setPost_code(e.target.value)}
+                    placeholder="Insert Your Zip Code"
+                  />
+                </div>
+              </div>
+              <div className={styles.btnDiv}>
+                <button type="button" class="btn btn-primary">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Fragment>
+  );
 };
 
 export default Profile;
