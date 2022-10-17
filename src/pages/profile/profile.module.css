@@ -16,6 +16,7 @@
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   background: #ffffff;
+  margin-bottom: 15px;
 }
 
 .sect2 {
@@ -25,6 +26,11 @@
   background: #ffffff;
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.profile_background {
+  background: #f0ebeb;
 }
 .text {
   font-style: normal;
