@@ -154,6 +154,8 @@ const NavBar = () => {
                 className="my-auto logo-toggle-navbar"
                 src={logo}
                 alt=""
+                width="500"
+                height="350"
               />
             </div>
           </Navbar.Brand>
