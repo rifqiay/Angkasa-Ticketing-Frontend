@@ -69,10 +69,10 @@ const Register = () => {
       <div className="page-register">
         <div className="container">
           <div className="row">
-            <div className="col-5 profile-background">
+            <div className="col-lg-5 profile-background">
               <img src={BackgroundImage} alt="illustration" />
             </div>
-            <div className="col-7">
+            <div className="col-lg-7">
               <form onSubmit={handleCreate} className="w-100 form-sign-up">
                 <div className="text-center">
                   <h2 className="text-warning">Let’s Get Started !</h2>
