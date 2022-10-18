@@ -20,8 +20,8 @@ export const getProfileUser = createAsyncThunk(
             // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
           },
         });
-        // console.log(response.data)
-        return response.data;
+        // console.log("Cek data = ", response.data.data[0]);
+        return response.data.data[0];
       }
     } catch (error) {
       console.log(error.response.data.message);
