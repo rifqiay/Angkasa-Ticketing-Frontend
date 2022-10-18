@@ -59,10 +59,10 @@ const Login = () => {
       <div className="page-login">
         <div className="container">
           <div className="row">
-            <div className="col-5 profile-background">
+            <div className="col-lg-5 profile-background">
               <img src={BackgroundImage} alt="illustration" />
             </div>
-            <div className="col-7">
+            <div className="col-lg-7">
               <form onSubmit={handleLogin} className="w-100 form-sign-in">
                 <div className="text-center my-5">
                   <h2 className="text-warning">Welcome</h2>

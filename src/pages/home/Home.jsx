@@ -1,10 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Footer from "../../components/footer/Footer";
-import CountryCard from "../../components/countryCard/CountryCard";
-
 import styles from "./home.module.css";
-
 import home1 from "../../assets/home1.svg";
 import home2 from "../../assets/home2.svg";
 import home3 from "../../assets/home3.svg";
@@ -67,8 +63,6 @@ const Home = () => {
       <div className="container bg-primary py-5 rounded-5 mt-5">
         <Carousell />
       </div>
-
-      <Footer />
     </>
   );
 };
