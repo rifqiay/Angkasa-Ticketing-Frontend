@@ -63,7 +63,7 @@ REACT_APP_URL_BACKEND = https://ankasa-ticketing-production.up.railway.app/
 
 ```sh
 
-npm start
+yarn start
 
 ```
 
