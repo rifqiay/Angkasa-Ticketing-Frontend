@@ -6,7 +6,7 @@ import Login from "../src/pages/auth/login/Login";
 import PageNotFound from "../src/pages/PageNotFound/PageNotFound.jsx";
 import Register from "../src/pages/auth/register/Register";
 import Mybooking from "../src/pages/my-booking/Mybooking";
-import BookingDetail from "../src/pages/booking-detail/BookingDetail"
+import BookingDetail from "../src/pages/booking-detail/BookingDetail";
 import SearchFlight from "./pages/search-result/SearchResult";
 import FlightDetail from "./pages/flightDetail/FlightDetail";
 import Profile from "../src/pages/profile/Profile.jsx";
@@ -14,7 +14,7 @@ import ScrollToTop from "./component/ScrollToTop";
 import useWindowDimensions from "./component/WindowsSize";
 import PageDeviceNotSupported from "./component/PageDeviceNotSupported";
 import Footer from "../src/components/footer/Footer";
-import Navbar from "../src/component/navbar";
+import Navbar from "../src/components/navbar/Navbar";
 
 //modules
 import { ToastContainer } from "react-toastify";

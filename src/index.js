@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { BrowserRouter } from "react-router-dom";
-
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/bundle";
@@ -17,21 +15,25 @@ import "bootstrap/dist/js/bootstrap.min.js";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import { Provider } from "react-redux";
-import store from "./app/redux/store";
+import { store } from './redux/store'
 import { HelmetProvider } from "react-helmet-async";
+import { BrowserRouter } from './router/browserHistory'
+import { Provider as ReduxProvider } from 'react-redux'
+import { injectStore } from './utils/http'
+
+injectStore(store)
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <BrowserRouter>
-      <HelmetProvider>
-        <App />
-      </HelmetProvider>
-    </BrowserRouter>
-  </Provider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <ReduxProvider store={store}>
+      <BrowserRouter>
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
+      </BrowserRouter>
+    </ReduxProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
