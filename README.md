@@ -1,70 +1,119 @@
-# Getting Started with Create React App
+<!--div align="center">
+  <img src="" align="center" width="300" height="auto" />
+</div-->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About The Project
 
-## Available Scripts
+Ankasa Ticketing is an online airplane ticket booking system. This system eases every user who wants to travel both nationally and internationally, using airplanes. This system makes more economic process for flight booking with some airlines.
 
-In the project directory, you can run:
+### Built With
 
-### `yarn start`
+This application was developed using a framework/library
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [ReactJS](https://reactjs.org/)
+- [Javascript](https://www.javascript.com/)
+- [Axios](https://axios-http.com/)
+- [Redux](https://redux.js.org/)
+- [Bootstrap](https://getbootstrap.com)
+- [TailwindCSS](https://tailwindcss.com/)
+- [react-bootstrap](https://react-bootstrap.github.io/)
+- [react-helmet-async](https://github.com/staylor/react-helmet-async)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
+### Prerequisites
 
-### `yarn test`
+Make sure that Node JS is installed on the computer.
+* [Node Js](https://nodejs.org/en/download/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
 
-### `yarn build`
+1. Clone this repos (ankasa-frontend)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+git clone https://github.com/rifqiay/Angkasa-Ticketing-Frontend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
 
-### `yarn eject`
+2. Go To Folder Repo
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```sh
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+cd ankasa-frontend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Install Module
 
-## Learn More
+```sh
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+npm i
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
 
-### Code Splitting
+4. Add .env file at root folder project, and add following
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```sh
 
-### Analyzing the Bundle Size
+REACT_APP_URL_BACKEND = https://ankasa-ticketing-production.up.railway.app/
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
 
-### Making a Progressive Web App
+5. Start website
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```sh
 
-### Advanced Configuration
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
 
-### Deployment
+### Related Project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+* [`Ankasa FE`](https://github.com/rifqiay/Angkasa-Ticketing-Frontend)
+* [`Ankasa BE`](https://github.com/rifqiay/Angkasa-Ticketing-Backend)
 
-### `yarn build` fails to minify
+## Our Team
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<center>
+  <table>
+    <tr>
+      <th>Frontend/Project Manager</th>
+      <th>Frontend</th>
+      <th>Frontend</th>
+      <th>Backend</th>
+      <th>Backend</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/rifqiay">
+          <img width="100" src="https://avatars.githubusercontent.com/u/100255930?v=4" alt="Muhammad Rifqi Ainul Yaqin"><br/>
+          <b>Muhammad Rifqi Ainul Yaqin</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/rifqiahmadpratama">
+          <img width="100" src="https://avatars.githubusercontent.com/u/72550248?v=4" alt="Rifqi Ahmad Pratama"><br/>
+          <b>Rifqi Ahmad Pratama</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/bagus25dzikri06">
+          <img width="100" src="https://avatars.githubusercontent.com/u/18045292?v=4" alt="Bagus Dzikri Hidayat"><br/>
+          <b>Bagus Dzikri Hidayat</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/Hnaa17">
+          <img width="150" src="https://avatars.githubusercontent.com/u/110190301?v=4" alt="Farhana Achmad"><br/>
+          <b>Farhana Achmad</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/chlasswg26">
+          <img width="150" src="https://avatars.githubusercontent.com/u/28286878?v=4" alt="Ichlas Wardy"><br/>
+          <b>Ichlas Wardy</b>
+        </a>
+      </td>
+    </tr>
+  </table>
+</center>
