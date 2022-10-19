@@ -1,143 +1,210 @@
 import React, { Fragment } from "react";
-import { HiUser } from "react-icons/hi";
-import { AiFillStar } from "react-icons/ai";
-import { MdSettings, MdOutlineLogout } from "react-icons/md";
-import { Helmet } from "react-helmet-async";
+import styles from "./mybooking.module.css";
+import { useDispatch, useSelector } from "react-redux";
+
+import UserLogo from "../../assets/images/profile/user.png";
+import Setting from "../../assets/images/profile/setting.png";
+import Rating from "../../assets/images/profile/rating.png";
+import LogOut from "../../assets/images/profile/logOut.png";
+import ImageProfile from "../../assets/images/profile/profile.png";
+import PlateImage from "../../assets/images/icons/plate.svg";
+import map from "../../assets/map-pin.svg";
+import ImageDetails from "../../assets/images/btnback.png";
+import { putProfileUser } from "../../app/redux/Slice/ProfileUserSlice";
+import axios from "axios";
 
 const Mybooking = () => {
   return (
     <Fragment>
-      <Helmet>
-        <script src="https://cdn.tailwindcss.com"></script>
-      </Helmet>
+      <div className={styles.mybooking_background}>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-4 mt-4">
+              <div className={styles.sect1}>
+                <div className=" text-center">
+                  <img src={ImageProfile} alt="imageProfile" />
+                  <div className="mt-3"></div>
+                  <button type="button" class="btn btn-outline-primary">
+                    Select Photo
+                  </button>
+                  <h3 className="mt-4">Rifqi Ahmad Pratama</h3>
+                  <div class="row">
+                    <div className="col-md-6 offset-md-3 ">
+                      <img src={map} alt="map" />
+                      <p>Bandung, Indonesia</p>
+                    </div>
+                  </div>
+                </div>
 
-      <div className="overflow-hidden bg-gray-100">
-        <div className="row">
-          <div className="my-4 ml-5 mr-1 col-3">
-            <div className="py-3 text-center bg-white rounded">
-              <img
-                className="mx-auto mb-3 border-4 border-blue-400 rounded-full d-block"
-                src="images/nnzkZNYWHaU.svg"
-                width={150}
-                height={233}
-              />
-              <button
-                type="button"
-                class="py-2.5 px-5 mr-2 mb-4 text-sm font-medium text-blue-400 focus:outline-none bg-white rounded-lg border-2 border-blue-400 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                <div className="row justify-content-between">
+                  <div className="col-3">
+                    <h5>Cards</h5>
+                  </div>
+                  <div className="col-3">
+                    <h5>+Add</h5>
+                  </div>
+                </div>
+
+                <div className="card ">
+                  <div className="card-body bg-primary text-white border border-3">
+                    <p>4441 1235 5512 5551</p>
+                    <div className="row justify-content-between">
+                      <div className="col-6">
+                        <h5>X Card</h5>
+                      </div>
+                      <div className="col-6">
+                        <h5>& 1,440.2</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className=" row justify-content-center mt-4">
+                  <div className="col-4">
+                    <img src={UserLogo} alt="userlogo" />
+                  </div>
+                  <div className="col-4">
+                    <p className="ms-2">Profile</p>
+                  </div>
+                </div>
+                <div className=" row justify-content-center mt-4">
+                  <div className="col-4">
+                    <img src={Rating} alt="userlogo" />
+                  </div>
+                  <div className="col-4">
+                    <p className="ms-2">My Review</p>
+                  </div>
+                </div>
+                <div className=" row justify-content-center mt-4">
+                  <div className="col-4">
+                    <img src={Setting} alt="userlogo" />
+                  </div>
+                  <div className="col-4">
+                    <p className="ms-2">Settings</p>
+                  </div>
+                </div>
+                <div className=" row justify-content-center mt-4">
+                  <div className="col-4">
+                    <img src={LogOut} alt="userlogo" />
+                  </div>
+                  <div className="col-4">
+                    <p className="ms-2">Logout</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-lg-8 mt-4">
+              <form
+                id="form-edit-profile"
+                // onSubmit={handleUpdate}
               >
-                Select Photo
-              </button>
-              <h1 className="mb-2 text-3xl font-bold">Mike Kowalski</h1>
-              <h5 className="mb-4 text-xl font-normal">Medan, Indonesia</h5>
-              <div className="mx-1 row">
-                <div className="text-start col-6">Card</div>
-                <div className="text-end text-blue-500 col-6">
-                  <a href="#">+Add</a>
-                </div>
-              </div>
-              <div className="m-4 bg-blue-500 rounded">
-                <div className="text-white m-4 py-2">
-                  <div className="text-start text-xl font-bold">
-                    4441 1235 5512 5551
-                  </div>
-                  <div className="row">
-                    <div className="text-start col-6">X Card</div>
-                    <div className="text-end col-6">$ 1,440.2</div>
+                <div className={styles.sect2}>
+                  <h5>My BOOKING</h5>
+                  <div className="row justify-content-between">
+                    <div className="col-4">
+                      <h2>My Booking</h2>
+                    </div>
+                    <div className="col-4">
+                      <p>Order History</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex mx-3">
-                <HiUser size={30} color="#2395FF" className="mr-10" />
-                <p className="font-bold text-blue-400">Profile</p>
-              </div>
-              <div className="flex mx-3 mt-4">
-                <AiFillStar size={30} color="#979797" className="mr-10" />
-                <p className="font-bold text-gray-400">My Review</p>
-              </div>
-              <div className="flex mx-3 mt-4">
-                <MdSettings size={30} color="#979797" className="mr-10" />
-                <p className="font-bold text-gray-400">Settings</p>
-              </div>
-              <div className="flex mx-3 mt-4">
-                <MdOutlineLogout size={30} color="#F24545" className="mr-10" />
-                <p className="font-bold text-red-600">Logout</p>
-              </div>
-            </div>
-          </div>
-          <div className="my-4 col-8">
-            <div className="py-3 text-center bg-white rounded mb-4">
-              <div
-                className="col-12 text-start text-blue-400 mx-4 my-1"
-                style={{ letterSpacing: "5px" }}
+              </form>
+              <form
+                id="form-edit-profile"
+                // onSubmit={handleUpdate}
               >
-                MY BOOKING
-              </div>
-              <div className="row mx-3">
-                <div className="col-6 text-start font-bold text-3xl">
-                  My Booking
-                </div>
-                <div className="col-6 text-end text-blue-400 font-bold text-lg my-1">
-                  Order History
-                </div>
-              </div>
-            </div>
-            <div className="py-3 text-center bg-white rounded my-4">
-              <p className="col-12 text-start mx-4 my-2">
-                Monday, 20 July ‘20 - 12:33
-              </p>
-              <div className="row mx-3">
-                <div className="col-1 text-start text-2xl font-bold">IDN</div>
-                <div className="col-1 my-2">
-                  <img src="images/Vector.svg" width={28} height={27} />
-                </div>
-                <div className="col-10 text-start text-2xl font-bold">JPN</div>
-              </div>
-              <p className="col-12 text-start text-gray-400 mx-4">
-                Garuda Indonesia, AB-221
-              </p>
-              <hr className="my-3" />
-              <div className="row mx-3">
-                <div className="col-1 my-1 text-start text-lg font-semibold">
-                  Status
-                </div>
-                <div className="col-3 text-center">
-                  <div className="bg-orange-500 rounded p-2 mr-2 text-white">
-                    Waiting for payment
+                <div className={styles.sect2}>
+                  <p>Monday, 20 July '20 - 12:33</p>
+                  <div className="d-flex">
+                    <h3>IDN</h3>
+                    <img className="ms-4" src={PlateImage} alt="PlateImage" />
+                    <h3 className="ms-4">IDN</h3>
+                  </div>
+                  <p>Garuda Indonesia, AB-221</p>
+                  <hr />
+                  <div className="row justify-content-between">
+                    <div className="col-2">
+                      <p>Status</p>
+                    </div>
+                    <div className="col-7">
+                      <p>Waiting for paymant</p>
+                    </div>
+                    <div
+                      className="col-3 d-flex"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseWidthExample1"
+                      aria-expanded="false"
+                      aria-controls="collapseWidthExample1"
+                    >
+                      <p className="text-primary">View Details</p>
+                      <img
+                        src={ImageDetails}
+                        alt="ImageDetails"
+                        className={styles.ImageDetails}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="collapse collapse-vertical"
+                    id="collapseWidthExample1"
+                  >
+                    <div className="card card body">
+                      This is some placeholder content for a horizontal
+                      collapse. It's hidden by default and shown when triggered.
+                    </div>
                   </div>
                 </div>
-                <div className="col-8 my-1 text-end text-lg text-blue-400 font-semibold ">
-                  <a href="#">View Details</a>
-                </div>
-              </div>
-            </div>
-            <div className="py-3 text-center bg-white rounded my-4">
-              <p className="col-12 text-start mx-4 my-2">
-                Monday, 20 July ‘20 - 12:33
-              </p>
-              <div className="row mx-3">
-                <div className="col-1 text-start text-2xl font-bold">IDN</div>
-                <div className="col-1 my-2">
-                  <img src="images/Vector.svg" width={28} height={27} />
-                </div>
-                <div className="col-10 text-start text-2xl font-bold">JPN</div>
-              </div>
-              <p className="col-12 text-start text-gray-400 mx-4">
-                Garuda Indonesia, AB-221
-              </p>
-              <hr className="my-3" />
-              <div className="row mx-3">
-                <div className="col-1 my-1 text-start text-lg font-semibold">
-                  Status
-                </div>
-                <div className="col-3 text-center">
-                  <div className="bg-green-500 rounded p-2 mr-2 text-white">
-                    E-Ticket issued
+              </form>
+              <form
+                id="form-edit-profile"
+                // onSubmit={handleUpdate}
+              >
+                <div className={styles.sect2}>
+                  <p>Monday, 20 July '20 - 12:33</p>
+                  <div className="d-flex">
+                    <h3>IDN</h3>
+                    <img className="ms-4" src={PlateImage} alt="PlateImage" />
+                    <h3 className="ms-4">IDN</h3>
+                  </div>
+                  <p>Garuda Indonesia, AB-221</p>
+                  <hr />
+                  <div className="row justify-content-between">
+                    <div className="col-2">
+                      <p>Status</p>
+                    </div>
+                    <div className="col-7">
+                      <p>Etiket issued</p>
+                    </div>
+                    <div
+                      className="col-3 d-flex"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseWidthExample"
+                      aria-expanded="false"
+                      aria-controls="collapseWidthExample"
+                    >
+                      <p className="text-primary">View Details</p>
+                      <img
+                        src={ImageDetails}
+                        alt="ImageDetails"
+                        className={styles.ImageDetails}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="collapse collapse-vertical"
+                    id="collapseWidthExample"
+                  >
+                    <div className="card card body">
+                      This is some placeholder content for a horizontal
+                      collapse. It's hidden by default and shown when triggered.
+                    </div>
                   </div>
                 </div>
-                <div className="col-8 my-1 text-end text-lg text-blue-400 font-semibold ">
-                  <a href="#">View Details</a>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
