@@ -12,6 +12,7 @@ import {
   useLocation,
   Link,
 } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 import { useDispatch, useSelector } from "react-redux";
 import style from "./navbar.module.css";
@@ -135,6 +136,10 @@ const NavBar = () => {
 
   return (
     <Fragment>
+      <Helmet>
+        <script src="https://cdn.tailwindcss.com"></script>
+      </Helmet>
+
       <Navbar
         key={expand}
         bg="white"
