@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
 import styles from "./searchFlight.module.css";
@@ -14,7 +14,6 @@ import banner from "../../assets/img1.png";
 import arrow from "../../assets/arrow.png";
 import elips from "../../assets/elipse-putih.png";
 import { useDispatch } from "react-redux";
-import { getTicketsActionCreator } from "../../redux/action/creator/ticket";
 
 const SearchFlight = () => {
   const dispatch = useDispatch();
@@ -38,17 +37,17 @@ const SearchFlight = () => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
 
-  const paramsToObject = (entries) => {
-    const result = {};
-    for (const [key, value] of entries) {
-      result[key] = value;
-    }
-    return result;
-  };
+  // const paramsToObject = (entries) => {
+  //   const result = {};
+  //   for (const [key, value] of entries) {
+  //     result[key] = value;
+  //   }
+  //   return result;
+  // };
 
-  const entries = query.entries();
-  const objectParams = paramsToObject(entries);
-  const isMounted = useRef();
+  // const entries = query.entries();
+  // const objectParams = paramsToObject(entries);
+  // const isMounted = useRef();
 
   const getFlight = async () => {
     try {
@@ -106,63 +105,63 @@ const SearchFlight = () => {
 
   const itemsPerPage = 3;
 
-  useEffect(() => {
-    if (!isMounted.current) {
-      if (objectParams) {
-        dispatch(
-          getRecipeActionCreator({
-            ...objectParams,
-          })
-        );
-      } else {
-        dispatch(getRecipeActionCreator());
-      }
-      isMounted.current = true;
-    } else {
-      dispatch(
-        getRecipeActionCreator({
-          ...objectParams,
-        })
-      );
-    }
-  }, [query]);
-
   // useEffect(() => {
-  //   getFlight();
-  //   const endOffset = itemOffset + itemsPerPage;
-  //   setCurrentItems(flights.slice(itemOffset, endOffset));
-  //   setPageCount(Math.ceil(flights.length / itemsPerPage));
+  //   if (!isMounted.current) {
+  //     if (objectParams) {
+  //       dispatch(
+  //         getRecipeActionCreator({
+  //           ...objectParams,
+  //         })
+  //       );
+  //     } else {
+  //       dispatch(getRecipeActionCreator());
+  //     }
+  //     isMounted.current = true;
+  //   } else {
+  //     dispatch(
+  //       getRecipeActionCreator({
+  //         ...objectParams,
+  //       })
+  //     );
+  //   }
+  // }, [query]);
 
-  //   const newOrigin = query.get("origin");
-  //   const newDestination = query.get("destination");
-  //   const newParams = {
-  //     origin: newOrigin,
-  //     destination: newDestination,
-  //     // ...page
-  //   };
-  //   setOrigin(newOrigin);
-  //   setDestination(newDestination);
-  //   setParams({
-  //     ...params,
-  //     ...newParams,
-  //   });
-  //   const dataParam = {
-  //     origin: newOrigin,
-  //     destination: newDestination,
-  //     date,
-  //     ticketType,
-  //     departure,
-  //     arrival,
-  //     transitType,
-  //     facilities,
-  //     airlines,
-  //     minPrice,
-  //     maxPrice,
-  //     sortBy,
-  //   };
+  useEffect(() => {
+    getFlight();
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(flights.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(flights.length / itemsPerPage));
 
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [query, flights]);
+    const newOrigin = query.get("origin");
+    const newDestination = query.get("destination");
+    const newParams = {
+      origin: newOrigin,
+      destination: newDestination,
+      // ...page
+    };
+    setOrigin(newOrigin);
+    setDestination(newDestination);
+    setParams({
+      ...params,
+      ...newParams,
+    });
+    const dataParam = {
+      origin: newOrigin,
+      destination: newDestination,
+      date,
+      ticketType,
+      departure,
+      arrival,
+      transitType,
+      facilities,
+      airlines,
+      minPrice,
+      maxPrice,
+      sortBy,
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, flights]);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % flights.length;
