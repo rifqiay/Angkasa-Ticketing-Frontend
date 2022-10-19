@@ -39,7 +39,7 @@ export const putProfileUser = createAsyncThunk(
       if (token) {
         const response = await api
           .put(
-            process.env.REACT_APP_API_BACKEND + "users/profile?update",
+            process.env.REACT_APP_API_BACKEND + "users/profile/1",
             formData,
             {
               headers: {
