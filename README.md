@@ -27,7 +27,7 @@ Make sure that Node JS is installed on the computer.
 
 ### Installation
 
-1. Clone this repos (ankasa-frontend)
+1. Clone this repos (Angkasa-Ticketing-Frontend)
 
 ```sh
 
@@ -39,7 +39,7 @@ git clone https://github.com/rifqiay/Angkasa-Ticketing-Frontend
 
 ```sh
 
-cd ankasa-frontend
+cd Angkasa-Ticketing-Frontend
 
 ```
 
