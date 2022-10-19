@@ -242,7 +242,7 @@ const NavBar = () => {
                             <div className="col-4 border border-0 rounded-3 d-flex justify-content-center align-items-center block">
                               <img
                                 referrerPolicy="no-referrer"
-                                className="photoSide"
+                                className={style.imageProfile}
                                 // src={user_picture} alt=""
                                 src={
                                   // user_picture === null ||
@@ -268,20 +268,6 @@ const NavBar = () => {
                                     type="button"
                                   >
                                     <p className="my-auto"> My Profile</p>
-                                  </Button>
-                                </div>
-
-                                <div className="col-12 d-grid mt-4">
-                                  <Button
-                                    variant="outline-warning"
-                                    onClick={() => {
-                                      navigate("../profile/my-recipes");
-                                      toggleOffcanvas();
-                                    }}
-                                    className=" rounded-pill block  "
-                                    type="button"
-                                  >
-                                    <p className="my-auto">My Recipes</p>
                                   </Button>
                                 </div>
                               </Nav.Link>
@@ -341,29 +327,185 @@ const NavBar = () => {
                         </div>
 
                         <div className="col-xl-4 col-lg-4 d-flex">
-                          <div className="col-12 d-flex justify-content-end align-items-center block">
+                          <div className="col-5 ">
+                            <Button
+                              variant="primary"
+                              // onClick={handleShow}
+                              className=" rounded-pill block "
+                              type="button"
+                            >
+                              <p className="my-auto text-light">My Booking</p>
+                            </Button>
+                          </div>
+                          <div className="col-5">
+                            <Button
+                              variant="primary"
+                              onClick={handleShow}
+                              className=" rounded-pill block "
+                              type="button"
+                            >
+                              <p className="my-auto text-light">Find Ticket</p>
+                            </Button>
+                            <Modal
+                              show={show}
+                              id="exampleModal"
+                              onHide={handleClose}
+                              className={styles["modal-wrap"]}
+                            >
+                              <Modal.Body className={styles.modal}>
+                                <div className={styles["modal-header"]}>
+                                  <span>Hey,</span>
+                                  <p>Where you want to go?</p>
+                                </div>
+
+                                <div className={styles["modal-detail"]}>
+                                  <div>
+                                    <span>From</span>
+                                    <span>To</span>
+                                  </div>
+
+                                  <div>
+                                    <input
+                                      name="origin"
+                                      type="text"
+                                      className={styles.origin}
+                                      // onChange={(e) => setOrigin(e.target.value)}
+                                      required
+                                    />
+                                    <img src={switchIcon} alt="" />
+                                    <input
+                                      type="text"
+                                      className={styles.dest}
+                                      //  onChange={(e) => setDestination(e.target.value)}
+                                      required
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className={styles["modal-trip"]}>
+                                  <button
+                                    name="trip"
+                                    onClick={() => setTrip("oneway")}
+                                  >
+                                    <div>
+                                      <img src={oneway} alt="" />
+                                      <span>One way</span>
+                                    </div>
+                                  </button>
+
+                                  <button
+                                    name="trip"
+                                    onClick={() => setTrip("round")}
+                                  >
+                                    <div>
+                                      <img src={round} alt="" />
+                                      <span>Round trip</span>
+                                    </div>
+                                  </button>
+                                </div>
+
+                                <div className={styles["modal-ticket"]}>
+                                  <p>Departure</p>
+                                  <input
+                                    type="date"
+                                    name="departure"
+                                    placeholder="dd-mm-yyyy"
+                                    min="1997-01-01"
+                                    max="2030-12-31"
+                                    className={styles.date}
+                                    // onChange={(e) => {
+                                    //   setDate(e.target.value);
+                                    // }}
+                                  />
+
+                                  <p>How many person?</p>
+                                  <div>
+                                    <select
+                                      name="child"
+                                      id="child"
+                                      className={styles.ticket}
+                                      // onChange={(e) => {
+                                      //   setChild(e.target.value);
+                                      // }}
+                                    >
+                                      <option value="1">1 Child</option>
+                                      <option value="2">2 Child</option>
+                                      <option value="3">3 Child</option>
+                                      <option value="4">4 Child</option>
+                                    </select>
+
+                                    <select
+                                      name="adult"
+                                      id="adult"
+                                      className={styles.ticket}
+                                      // onChange={(e) => {
+                                      //   setAdult(e.target.value);
+                                      // }}
+                                    >
+                                      <option value="1">1 Adult</option>
+                                      <option value="2">2 Adult</option>
+                                      <option value="3">3 Adult</option>
+                                      <option value="4">4 Adult</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div className={styles["modal-ticket-type"]}>
+                                  <p>Which class do you want?</p>
+                                  <div>
+                                    <div>
+                                      <input
+                                        id="economy"
+                                        value="economy"
+                                        type="radio"
+                                        name="class"
+                                        //  onClick={(e) => setTicketType(e.target.value)}
+                                      />
+                                      <label htmlFor="economy">Economy</label>
+                                    </div>
+
+                                    <div>
+                                      <input
+                                        id="business"
+                                        value="business"
+                                        type="radio"
+                                        name="class"
+                                        //  onClick={(e) => setTicketType(e.target.value)}
+                                      />
+                                      <label htmlFor="business">Business</label>
+                                    </div>
+
+                                    <div>
+                                      <input
+                                        id="firstClass"
+                                        value="firstClass"
+                                        type="radio"
+                                        name="class"
+                                        // onClick={(e) => setTicketType(e.target.value)}
+                                      />
+                                      <label htmlFor="firstClass">
+                                        First Class
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <button
+                                  className={styles["modal-btn"]}
+                                  //   onClick={() => handleSearchFlight(origin, destination)}
+                                >
+                                  <span>SEARCH FLIGHT</span>
+                                  <img src={arrow} alt="" />
+                                </button>
+                              </Modal.Body>
+                            </Modal>
+                          </div>
+                          <div className="col-6 d-flex justify-content-end align-items-center block">
                             <NavDropdown
                               title={pictureThumbnails}
                               align="end"
                               id={`offcanvasNavbarDropdown-expand-${expand}`}
                             >
-                              {/* <NavDropdown.Header className="d-grid ">
-                                <p className="mb-0 fw-bold">
-                                  {
-                                    // user_email
-                                  }{" "}
-                                </p>
-                                <p className="mb-0">
-                                  <small>
-                                    {" "}
-                                    UID :{" "}
-                                    {
-                                      // user_id
-                                    }
-                                  </small>
-                                </p>
-                              </NavDropdown.Header>
-                              <NavDropdown.Divider /> */}
                               <NavDropdown.Item
                                 onClick={() => {
                                   navigate("../profile");
@@ -372,14 +514,7 @@ const NavBar = () => {
                                 My Profile
                               </NavDropdown.Item>
                               <NavDropdown.Divider />
-                              <NavDropdown.Item
-                                onClick={() => {
-                                  navigate("../profile/my-recipes");
-                                }}
-                              >
-                                My Recipes
-                              </NavDropdown.Item>
-                              <NavDropdown.Divider />
+
                               <NavDropdown.Item
                                 onClick={() => {
                                   navigate("../home");
@@ -437,7 +572,7 @@ const NavBar = () => {
                           </Form>
                         </div>
                         <div className="d-flex mt-4 ">
-                          <div className="col-6 d-grid px-2">
+                          <div className="col-4 d-grid px-2">
                             <Button
                               variant="warning"
                               onClick={() => {
@@ -447,10 +582,23 @@ const NavBar = () => {
                               className=" rounded-pill block "
                               type="button"
                             >
-                              <p className="my-auto text-light">Login</p>
+                              <p className="my-auto text-light">My Booking</p>
                             </Button>
                           </div>
-                          <div className="col-6 d-grid">
+                          <div className="col-4 d-grid px-2">
+                            <Button
+                              variant="warning"
+                              onClick={() => {
+                                // navigate("../login");
+                                // toggleOffcanvas();
+                              }}
+                              className=" rounded-pill block "
+                              type="button"
+                            >
+                              <p className="my-auto text-light">Find Ticket</p>
+                            </Button>
+                          </div>
+                          <div className="col-4 d-grid">
                             <Button
                               variant="warning"
                               onClick={() => {
