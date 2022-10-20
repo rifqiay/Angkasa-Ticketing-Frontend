@@ -5,8 +5,28 @@ import WarningLogo from "../../assets/warning.png";
 import Destination from "../../assets/dst.png";
 import Check from "../../assets/check.png";
 import Garuda from "../../assets/garuda-indonesia.svg";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
 const FlightDetail = () => {
+  const { id } = useParams();
+  const [data, setData] = useState("");
+
+  const getData = async () => {
+    try {
+      const result = await axios.get(
+        `http://localhost:8080/api/v1/ticket/${id}`
+      );
+      setData(result?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [id]);
+  console.log(data);
   return (
     <>
       <div className="container-fluid">
@@ -71,15 +91,20 @@ const FlightDetail = () => {
             </div>
             <div className="card p-3">
               <div className="d-flex align-items-center">
-                <img src={Garuda} alt="" />
-                <h5 className="ms-3">Garuda Indonesia</h5>
+                <img
+                  src={data?.airline?.thumbnail}
+                  width="100px"
+                  height="45px"
+                  alt=""
+                />
+                <h4 className="ms-3">{data?.airline?.title}</h4>
               </div>
               <div className="d-flex justify-content-evenly my-4">
-                <h5>Medan (IND)</h5>
+                <h5>{data?.place_from}</h5>
                 <div>
                   <img src={Destination} alt="" />
                 </div>
-                <h5>Tokyo (JPN)</h5>
+                <h5>{data?.place_to}</h5>
               </div>
               <div>
                 <strong>Sunday, 15 August 2020 . 12:33 - 15:21</strong>
@@ -180,7 +205,9 @@ const FlightDetail = () => {
             </div>
             <div className="d-flex justify-content-center">
               <button className="btn btn-primary w-50 mt-4">
-                Proceed to Payment
+                <Link to={`/my-booking`} className="text-light">
+                  Proceed to Payment
+                </Link>
               </button>
             </div>
           </div>

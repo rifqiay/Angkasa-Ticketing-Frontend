@@ -1,22 +1,23 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import ReactPaginate from "react-paginate";
 import axios from "axios";
 import styles from "./searchFlight.module.css";
+import "./pagination.css";
 import iconflight from "../../assets/iconflight.png";
 import wifiIcon from "../../assets/wifi.svg";
 import luggageIcon from "../../assets/luggage.svg";
 import mealIcon from "../../assets/meal.svg";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Garuda from "../../assets/garuda-indonesia.svg";
 import banner from "../../assets/img1.png";
 import arrow from "../../assets/arrow.png";
 import elips from "../../assets/elipse-putih.png";
+import { useDispatch } from "react-redux";
 
 const SearchFlight = () => {
+  const dispatch = useDispatch();
   const [flights, setFlights] = useState([]);
-  const [pagination, setPaginaiton] = useState([]);
-  const navigate = useNavigate();
   const [params, setParams] = useState({});
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
@@ -32,53 +33,39 @@ const SearchFlight = () => {
   const [date, setDate] = useState("");
   const [ticket, setTicket] = useState("");
   const [ticketType, setTicketType] = useState("");
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
 
-  const fetchFlight = async ({
-    origin,
-    destination,
-    date,
-    ticketType,
-    transitType,
-    facilities,
-    departure,
-    arrival,
-    airlines,
-    sortBy,
-    minPrice,
-    maxPrice,
-    page,
-    limit,
-  }) => {
+  // const paramsToObject = (entries) => {
+  //   const result = {};
+  //   for (const [key, value] of entries) {
+  //     result[key] = value;
+  //   }
+  //   return result;
+  // };
+
+  // const entries = query.entries();
+  // const objectParams = paramsToObject(entries);
+  // const isMounted = useRef();
+
+  const getFlight = async () => {
     try {
       const result = await axios.get(
-        `https://avtur-ankasa-ticketing.herokuapp.com/v1/flights?${
-          origin && `&origin=${origin}`
-        }${destination && `&destination=${destination}`}${
-          date && `&date=${date}`
-        }${ticketType && `&type=${ticketType}`}${
-          transitType && `&transit=${transitType}`
-        }${facilities && `&fasilitas=${facilities}`}${
-          departure && `&departure=${departure}`
-        }${arrival && `&arrival=${arrival}`}${
-          airlines && `&airline=${airlines}`
-        }${minPrice && `&min=${minPrice}`}${maxPrice && `&max=${maxPrice}`}${
-          sortBy && `&sortBy=${sortBy}`
-        }${page && `&page=${page}`}${limit && `&limit=${limit}`}`
+        "http://localhost:8080/api/v1/ticket?limit=40"
       );
       setFlights(result.data.data);
-      setPaginaiton(result.data.pagination);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const changeSearch = (origin, destination, date, ticketType) => {
+  const changeSearch = (airline) => {
     const newParams = {
       origin,
       destination,
       date,
       ticketType,
-      ...page,
     };
 
     setParams({
@@ -89,44 +76,11 @@ const SearchFlight = () => {
     });
   };
 
-  const onSelect = (id) => {
-    navigate(`/flightDetail/${id}`);
-  };
-
-  const btn = [];
-  for (let i = 0; i < pagination.totalPage; i += 1) {
-    btn.push(i);
-  }
-
-  const [page, setPage] = useState({
-    limit: 3,
-    currentPage: 1,
-  });
-  console.log("ini pagination");
-  console.log(page);
-  console.log("ini origin");
-  console.log(query.get("origin"));
-  console.log("ini destination");
-  console.log(query.get("destination"));
-  console.log("ini transitType");
-  console.log(transitType);
-  console.log("ini departure");
-  console.log(departure);
-  console.log("ini facilites");
-  console.log(facilities);
-  console.log(flights);
-
   const onHandleReset = () => {
     let x = document.getElementsByClassName("checkbox");
     for (let item of x) {
       item.checked = false;
     }
-    console.log("ini checkbox");
-    console.log(x);
-    setPage({
-      currentPage: 1,
-      limit: 3,
-    });
     setDate("");
     setTicketType("");
     setTransitType("");
@@ -140,7 +94,6 @@ const SearchFlight = () => {
     const defaultParams = {
       origin,
       destination,
-      ...page,
     };
     setParams({
       ...defaultParams,
@@ -150,7 +103,35 @@ const SearchFlight = () => {
     });
   };
 
+  const itemsPerPage = 3;
+
+  // useEffect(() => {
+  //   if (!isMounted.current) {
+  //     if (objectParams) {
+  //       dispatch(
+  //         getRecipeActionCreator({
+  //           ...objectParams,
+  //         })
+  //       );
+  //     } else {
+  //       dispatch(getRecipeActionCreator());
+  //     }
+  //     isMounted.current = true;
+  //   } else {
+  //     dispatch(
+  //       getRecipeActionCreator({
+  //         ...objectParams,
+  //       })
+  //     );
+  //   }
+  // }, [query]);
+
   useEffect(() => {
+    getFlight();
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(flights.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(flights.length / itemsPerPage));
+
     const newOrigin = query.get("origin");
     const newDestination = query.get("destination");
     const newParams = {
@@ -177,12 +158,15 @@ const SearchFlight = () => {
       minPrice,
       maxPrice,
       sortBy,
-      page: page.currentPage,
-      limit: page.limit,
     };
-    fetchFlight(dataParam);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, [query, flights]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % flights.length;
+    setItemOffset(newOffset);
+  };
   return (
     <>
       <div class="container-fluid">
@@ -1496,100 +1480,121 @@ const SearchFlight = () => {
               </div>
             </div>
             {/* Card */}
-            <div class="card p-3 mt-3">
-              <div class="d-flex align-items-center">
-                <img src={Garuda} alt="" />
-                <h5 class="ms-4 text-secondary">Garuda Indonesia</h5>
-              </div>
-              <div class="d-flex justify-content-evenly align-items-center mt-3">
-                <div>
-                  <h2>IND</h2>
-                  <span>12:33</span>
+            {currentItems.map((item, index) => (
+              <div class="card p-3 mt-3" key={index}>
+                <div class="d-flex align-items-center">
+                  <img
+                    src={item.airline.thumbnail}
+                    width="100px"
+                    height="45px"
+                    alt=""
+                  />
+                  <h5 class="ms-4 text-secondary">{item.airline.title}</h5>
                 </div>
-                <div>
-                  <img src={iconflight} alt="" />
-                </div>
-                <div>
-                  <h2>JPN</h2>
-                  <span>15:21</span>
-                </div>
-                <div class={styles.r}>
-                  <strong class="text-secondary"> 3 hours 11 minutes </strong>
-                  <p class="text-secondary text-center">(transit 1)</p>
-                </div>
-                <div class="d-flex">
-                  <div class={styles.r}>
-                    <img src={luggageIcon} alt="" />
+                <div class="d-flex justify-content-evenly align-items-center mt-3">
+                  <div>
+                    <h2>{item.place_from}</h2>
+                    <span>12:33</span>
                   </div>
-                  <div class={`mx-2 ${styles.r}`}>
-                    <img src={mealIcon} alt="" />
+                  <div>
+                    <img src={iconflight} alt="" />
+                  </div>
+                  <div>
+                    <h2>{item.place_to}</h2>
+                    <span>15:21</span>
                   </div>
                   <div class={styles.r}>
-                    <img src={wifiIcon} alt="" />
+                    <strong class="text-secondary"> 3 hours 11 minutes </strong>
+                    <p class="text-secondary text-center">(transit 1)</p>
+                  </div>
+                  <div class="d-flex">
+                    <div class={styles.r}>
+                      <img src={luggageIcon} alt="" />
+                    </div>
+                    <div class={`mx-2 ${styles.r}`}>
+                      <img src={mealIcon} alt="" />
+                    </div>
+                    <div class={styles.r}>
+                      <img src={wifiIcon} alt="" />
+                    </div>
+                  </div>
+                  <div>
+                    <strong class={`text-primary ${styles.r}`}>
+                      $ 214,00 <span class="text-secondary">/pax</span>
+                    </strong>
+                  </div>
+                  <div>
+                    <Link to={`/detail/${item.id}`}>
+                      <button class="btn btn-primary">Select</button>
+                    </Link>
                   </div>
                 </div>
-                <div>
-                  <strong class={`text-primary ${styles.r}`}>
-                    $ 214,00 <span class="text-secondary">/pax</span>
-                  </strong>
-                </div>
-                <div>
-                  <Link to={`/detail/1`}>
-                    <button class="btn btn-primary">Select</button>
-                  </Link>
-                </div>
-              </div>
-              <div class={`accordion-item mt-3 ${styles.res}`}>
-                <h2 class="accordion-header" id="flush-headingOne">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#view"
-                    aria-expanded="false"
-                    aria-controls="flush-collapseOne"
+                <div class={`accordion-item mt-3 ${styles.res}`}>
+                  <h2 class="accordion-header" id="flush-headingOne">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#view"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseOne"
+                    >
+                      <strong class="text-primary">View Detail</strong>
+                    </button>
+                  </h2>
+                  <div
+                    id="view"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="flush-headingOne"
+                    data-bs-parent="#accordionFlushExample"
                   >
-                    <strong class="text-primary">View Detail</strong>
-                  </button>
-                </h2>
-                <div
-                  id="view"
-                  class="accordion-collapse collapse"
-                  aria-labelledby="flush-headingOne"
-                  data-bs-parent="#accordionFlushExample"
-                >
-                  <div class="accordion-body">
-                    <div class="d-flex justify-content-between">
-                      <strong class="text-secondary mt-2">
-                        {" "}
-                        3 hours 11 minutes{" "}
-                      </strong>
-                      <p class="text-secondary text-center">(transit 1)</p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex">
-                        <div>
-                          <img src={luggageIcon} alt="" />
-                        </div>
-                        <div class="mx-2">
-                          <img src={mealIcon} alt="" />
-                        </div>
-                        <div>
-                          <img src={wifiIcon} alt="" />
+                    <div class="accordion-body">
+                      <div class="d-flex justify-content-between">
+                        <strong class="text-secondary mt-2">
+                          {" "}
+                          3 hours 11 minutes{" "}
+                        </strong>
+                        <p class="text-secondary text-center">(transit 1)</p>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex">
+                          <div>
+                            <img src={luggageIcon} alt="" />
+                          </div>
+                          <div class="mx-2">
+                            <img src={mealIcon} alt="" />
+                          </div>
+                          <div>
+                            <img src={wifiIcon} alt="" />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                      <div class="mt-2">
-                        <strong class="text-primary">
-                          $ 214,00 <span class="text-secondary">/pax</span>
-                        </strong>
+                      <div class="d-flex justify-content-between">
+                        <div class="mt-2">
+                          <strong class="text-primary">
+                            $ 214,00 <span class="text-secondary">/pax</span>
+                          </strong>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={5}
+              pageCount={pageCount}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              containerClassName="pagination"
+              pageLinkClassName="page-num"
+              previousLinkClassName="page-nun"
+              nextLinkClassName="page-num"
+              activeLinkClassNan="active"
+            />
           </div>
         </div>
       </div>
