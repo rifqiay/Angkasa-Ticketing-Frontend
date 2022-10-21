@@ -28,7 +28,7 @@
 @media only screen and (max-width: 600px) {
   .banner {
     height: 150px !important;
-    width: 100% !important;
+    width: 100vw !important;
   }
   .selectclass {
     font-size: small !important;

@@ -7,7 +7,6 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Japan from "../../assets/japan.svg";
-import styles from "./carousel.css";
 
 const Carousell = () => {
   return (
@@ -47,28 +46,40 @@ const Carousell = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <img src={Japan} className={`rounded-circle ms-5 im`} alt="Japan" />
-          <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          <div className="wrapImg">
+            <img src={Japan} className={`rounded-circle ms-5 im`} alt="Japan" />
+            <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <img src={Japan} className="rounded-circle ms-5 im" alt="Japan" />
-          <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          <div>
+            <img src={Japan} className={`rounded-circle ms-5 im`} alt="Japan" />
+            <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <img src={Japan} className="rounded-circle ms-5 im" alt="Japan" />
-          <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          <div>
+            <img src={Japan} className={`rounded-circle ms-5 im`} alt="Japan" />
+            <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <img src={Japan} className="rounded-circle ms-5 im" alt="Japan" />
-          <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          <div>
+            <img src={Japan} className={`rounded-circle ms-5 im`} alt="Japan" />
+            <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <img src={Japan} className="rounded-circle ms-5 im" alt="Japan" />
-          <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          <div>
+            <img src={Japan} className={`rounded-circle ms-5 im`} alt="Japan" />
+            <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <img src={Japan} className="rounded-circle ms-5 im" alt="Japan" />
-          <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          <div>
+            <img src={Japan} className={`rounded-circle ms-5 im`} alt="Japan" />
+            <p className="text-center me-5 h6 mt-3 text-light">Japan</p>
+          </div>
         </SwiperSlide>
       </Swiper>
     </>
