@@ -5,7 +5,7 @@ import AfterLogin from "../navbar_after_login/AfterLogin";
 const Navbar = () => {
   return (
     <div>
-      {/* <BeforeLogin /> */}
+      <BeforeLogin />
       <AfterLogin />
     </div>
   );

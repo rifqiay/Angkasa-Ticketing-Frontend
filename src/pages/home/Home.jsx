@@ -61,7 +61,9 @@ const Home = () => {
       </div>
 
       <div className="container bg-primary py-5 rounded-5 mt-5">
-        <Carousell />
+        <div className="ms-lg-0 ms-5">
+          <Carousell />
+        </div>
       </div>
     </>
   );
