@@ -13,7 +13,8 @@ const Profile = () => {
   const token = localStorage.getItem("token");
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
-
+  const [previewEdit, setPreviewEdit] = useState();
+  const [newPhotoEdit, setNewPhotoEdit] = useState(null);
   const [dataUser, setDataUser] = useState({
     name: data.name,
     phone: data.phone,
@@ -44,20 +45,37 @@ const Profile = () => {
       // console.log("Cek data baru = ", response.data.data[0]);
     }
   };
+  console.log("Cek Image = ", newPhotoEdit);
+
+  const handleUploadEdit = (e) => {
+    setNewPhotoEdit(e.target.files[0]);
+    setPreviewEdit(URL.createObjectURL(e.target.files[0]));
+  };
 
   const handleUpdate = async (e) => {
     await e.preventDefault();
     const formData = new FormData();
+    // formData.append(
+    //   "name",
+    //   dataUser.name === undefined ? data.name : dataUser.name
+    // );
+    // formData.append(
+    //   "phone",
+    //   dataUser.phone === undefined ? data.phone : dataUser.phone
+    // );
     formData.append(
-      "name",
-      dataUser.name === undefined ? data.name : dataUser.name
-    );
-    formData.append(
-      "phone",
-      dataUser.phone === undefined ? data.phone : dataUser.phone
+      "photo",
+      newPhotoEdit === undefined ? data.photo : newPhotoEdit
     );
 
-    dispatch(putProfileUser(formData)).unwrap();
+    dispatch(putProfileUser(formData))
+      .unwrap()
+      .then((item) => {
+        setNewPhotoEdit();
+        setPreviewEdit();
+
+        document.getElementById("close-modal-edit-recipes").click();
+      });
   };
   useEffect(() => {
     getData();
@@ -67,84 +85,87 @@ const Profile = () => {
     <Fragment>
       <div className={styles.profile_background}>
         <div className="container">
-          <div className="row">
-            <div className="col-lg-4 mt-4">
-              <div className={styles.sect1}>
-                <div className=" text-center">
-                  <img src={ImageProfile} alt="imageProfile" />
-                  <div className="mt-3"></div>
-                  <button type="button" class="btn btn-outline-primary">
-                    Select Photo
-                  </button>
-                  <h3 className="mt-4">{data.name}</h3>
-                  <div class="row">
-                    <div className="col-md-6 offset-md-3 ">
-                      <img src={map} alt="map" />
-                      <p>Bandung, Indonesia</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row justify-content-between">
-                  <div className="col-3">
-                    <h5>Cards</h5>
-                  </div>
-                  <div className="col-3">
-                    <h5>+Add</h5>
-                  </div>
-                </div>
-
-                <div className="card ">
-                  <div className="card-body bg-primary text-white border border-3">
-                    <p>4441 1235 5512 5551</p>
-                    <div className="row justify-content-between">
-                      <div className="col-6">
-                        <h5>X Card</h5>
-                      </div>
-                      <div className="col-6">
-                        <h5>& 1,440.2</h5>
+          <form id="form-edit-profile" onSubmit={handleUpdate}>
+            <div className="row">
+              <div className="col-lg-4 mt-4">
+                <div className={styles.sect1}>
+                  <div className=" text-center">
+                    <img src={data.photo} alt="imageProfile" />
+                    <div className="mt-3"></div>
+                    <input
+                      type="file"
+                      placeholder="photo"
+                      className="form-control mt-3 mb-1 "
+                      onChange={handleUploadEdit}
+                    />
+                    <h3 className="mt-4">{data.name}</h3>
+                    <div class="row">
+                      <div className="col-md-6 offset-md-3 ">
+                        <img src={map} alt="map" />
+                        <p>Bandung, Indonesia</p>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div className=" row justify-content-center mt-4">
-                  <div className="col-4">
-                    <img src={UserLogo} alt="userlogo" />
+                  <div className="row justify-content-between">
+                    <div className="col-3">
+                      <h5>Cards</h5>
+                    </div>
+                    <div className="col-3">
+                      <h5>+Add</h5>
+                    </div>
                   </div>
-                  <div className="col-4">
-                    <p className="ms-2">Profile</p>
+
+                  <div className="card ">
+                    <div className="card-body bg-primary text-white border border-3">
+                      <p>4441 1235 5512 5551</p>
+                      <div className="row justify-content-between">
+                        <div className="col-6">
+                          <h5>X Card</h5>
+                        </div>
+                        <div className="col-6">
+                          <h5>& 1,440.2</h5>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className=" row justify-content-center mt-4">
-                  <div className="col-4">
-                    <img src={Rating} alt="userlogo" />
+
+                  <div className=" row justify-content-center mt-4">
+                    <div className="col-4">
+                      <img src={UserLogo} alt="userlogo" />
+                    </div>
+                    <div className="col-4">
+                      <p className="ms-2">Profile</p>
+                    </div>
                   </div>
-                  <div className="col-4">
-                    <p className="ms-2">My Review</p>
+                  <div className=" row justify-content-center mt-4">
+                    <div className="col-4">
+                      <img src={Rating} alt="userlogo" />
+                    </div>
+                    <div className="col-4">
+                      <p className="ms-2">My Review</p>
+                    </div>
                   </div>
-                </div>
-                <div className=" row justify-content-center mt-4">
-                  <div className="col-4">
-                    <img src={Setting} alt="userlogo" />
+                  <div className=" row justify-content-center mt-4">
+                    <div className="col-4">
+                      <img src={Setting} alt="userlogo" />
+                    </div>
+                    <div className="col-4">
+                      <p className="ms-2">Settings</p>
+                    </div>
                   </div>
-                  <div className="col-4">
-                    <p className="ms-2">Settings</p>
-                  </div>
-                </div>
-                <div className=" row justify-content-center mt-4">
-                  <div className="col-4">
-                    <img src={LogOut} alt="userlogo" />
-                  </div>
-                  <div className="col-4">
-                    <p className="ms-2">Logout</p>
+                  <div className=" row justify-content-center mt-4">
+                    <div className="col-4">
+                      <img src={LogOut} alt="userlogo" />
+                    </div>
+                    <div className="col-4">
+                      <p className="ms-2">Logout</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="col-lg-8 mt-4">
-              <form id="form-edit-profile" onSubmit={handleUpdate}>
+              <div className="col-lg-8 mt-4">
                 <div className={styles.sect2}>
                   <p className={styles.text}>Profile</p>
                   <p className={styles.text2}>Profile</p>
@@ -237,9 +258,9 @@ const Profile = () => {
                     </button>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </Fragment>
