@@ -59,8 +59,12 @@ const Login = () => {
       <div className="page-login">
         <div className="container">
           <div className="row">
-            <div className="col-lg-5 profile-background">
-              <img src={BackgroundImage} alt="illustration" />
+            <div className="col-lg-5 bg-primary profile-background">
+              <img
+                src={BackgroundImage}
+                alt="illustration"
+                className="bg-primary"
+              />
             </div>
             <div className="col-lg-7">
               <form onSubmit={handleLogin} className="w-100 form-sign-in">

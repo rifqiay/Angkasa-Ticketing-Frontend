@@ -69,7 +69,7 @@ const Register = () => {
       <div className="page-register">
         <div className="container">
           <div className="row">
-            <div className="col-lg-5 profile-background">
+            <div className="col-lg-5 bg-primary profile-background">
               <img src={BackgroundImage} alt="illustration" />
             </div>
             <div className="col-lg-7">
