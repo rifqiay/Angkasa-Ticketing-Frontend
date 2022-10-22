@@ -16,10 +16,9 @@ const duration = new Duration(REACT_APP_REQUEST_TIMEOUT);
 axiosInstance.defaults.baseURL = REACT_APP_BACKEND_URL;
 axiosInstance.defaults.timeout = duration.milliseconds();
 axiosInstance.defaults.withCredentials = true;
-axiosInstance.defaults.paramsSerializer = (params) =>
-    qs.stringify(params, {
-        arrayFormat: "brackets",
-    });
+axiosInstance.defaults.paramsSerializer = {
+    serialize: (params = {}) => qs.stringify(params, { arrayFormat: 'brackets' })
+}
 
 axiosInstance.interceptors.request.use(
     (config) => {
@@ -50,17 +49,17 @@ axiosInstance.interceptors.response.use(
 
         if (
             originalRequest.url.includes("/auth/refresh-token") &&
-            (error?.response?.data.data.message === "jwt expired" || error?.response?.data?.data?.message === "Refresh token unavailable" || error?.response?.data?.data?.message === "Refresh token must be conditioned")
+            (error?.response?.data?.data?.message === "jwt expired" || error?.response?.data?.data?.message === "Refresh token unavailable" || error?.response?.data?.data?.message === "Refresh token must be conditioned")
         ) {
             localStorage.clear();
-            history.replace("/home");
+            history.replace("/");
 
             return Promise.reject();
         }
 
         if (
             !originalRequest.url.includes("/auth/refresh-token") &&
-            (error?.response?.data.data.message === "jwt expired" || error?.response?.data?.data?.message === "Session unavailable" || error?.response?.data?.data?.message === "Bearer token must be conditioned") &&
+            (error?.response?.data?.data?.message === "jwt expired" || error?.response?.data?.data?.message === "Session unavailable" || error?.response?.data?.data?.message === "Bearer token must be conditioned") &&
             !originalRequest?._retry
         ) {
             try {
@@ -86,7 +85,7 @@ const ORDER_PATH = "/order";
 
 const queryParams = (value = {}) => {
     return {
-        params: value,
+        params: value
     };
 };
 
@@ -98,6 +97,15 @@ export const authLogout = async () => await axiosInstance.get(`${AUTHENTICATION_
 export const fetchProfile = async () => await axiosInstance.get(PROFILE_PATH);
 export const updateProfile = async (profileId = null, profileData = {}) => await axiosInstance.put(`${PROFILE_PATH}/${profileId}`, profileData);
 
+export const getTickets = async (filter = {}) => {
+    const isTicketFiltered = Object.keys(filter).length
+
+    if (isTicketFiltered) {
+        return await axiosInstance.get(TICKET_PATH, queryParams(filter))
+    } else {
+        return await axiosInstance.get(TICKET_PATH)
+    }
+}
 export const getTicketById = async (id = null) => await axiosInstance.get(`${TICKET_PATH}/${id}`);
 export const getIssuedTicketByTicketId = async (ticketId = null) => await axiosInstance.get(`${TICKET_PATH}/check/${ticketId}`);
 

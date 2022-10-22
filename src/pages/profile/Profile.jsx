@@ -99,7 +99,7 @@ const Profile = () => {
                       onChange={handleUploadEdit}
                     />
                     <h3 className="mt-4">{data.name}</h3>
-                    <div class="row">
+                    <div  className="row">
                       <div className="col-md-6 offset-md-3 ">
                         <img src={map} alt="map" />
                         <p>Bandung, Indonesia</p>
@@ -253,7 +253,7 @@ const Profile = () => {
                     </div>
                   </div>
                   <div className={styles.btnDiv}>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit"  className="btn btn-primary">
                       Save
                     </button>
                   </div>

@@ -10,32 +10,32 @@ import Carousell from "../../components/carousell/Carousell";
 const Home = () => {
   return (
     <>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="d-flex justify-content-center align-items-center h-100">
-            <div class={styles.res}>
-              <h1 class={styles.title}>
+      <div  className="row">
+        <div  className="col-lg-6">
+          <div  className="d-flex justify-content-center align-items-center h-100">
+            <div  className={styles.res}>
+              <h1  className={styles.title}>
                 Find your{" "}
-                <span class={`text-primary ms-2 ${styles.flg}`}> Flight</span>
+                <span  className={`text-primary ms-2 ${styles.flg}`}> Flight</span>
               </h1>
-              <p class="text-secondary mt-3 h5">
+              <p  className="text-secondary mt-3 h5">
                 and explore the world with us
               </p>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 offset-lg-2">
-          <img src={home1} class={`img-fluid ${styles.rimg}`} alt="" />
+        <div  className="col-lg-4 offset-lg-2">
+          <img src={home1}  className={`img-fluid ${styles.rimg}`} alt="" />
         </div>
       </div>
-      <div class={`row ${styles.imgleft}`}>
-        <div class="col-lg-6">
-          <img src={home2} class={`img-fluid ${styles.limg}`} alt="" />
+      <div  className={`row ${styles.imgleft}`}>
+        <div  className="col-lg-6">
+          <img src={home2}  className={`img-fluid ${styles.limg}`} alt="" />
         </div>
-        <div class={`col-lg-4 offset-lg-2 ${styles.rimg2}`}>
-          <div class="h-100 d-flex align-items-end">
-            <div class="w-50">
-              <img src={home3} class="img-fluid" alt="" />
+        <div  className={`col-lg-4 offset-lg-2 ${styles.rimg2}`}>
+          <div  className="h-100 d-flex align-items-end">
+            <div  className="w-50">
+              <img src={home3}  className="img-fluid" alt="" />
             </div>
           </div>
         </div>
