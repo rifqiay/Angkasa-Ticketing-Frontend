@@ -1,54 +1,95 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment ,useRef} from "react";
 import { useNavigate, Link } from "react-router-dom";
-
-import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { shallowEqual, useDispatch,useSelector } from "react-redux";
 import { postLogin } from "../../../app/redux/Slice/LoginSlice";
 
 import { toast } from "react-toastify";
 import BackgroundImage from "../../../assets/images/auth/illustration.png";
-
+import { useDidUpdate } from "@mantine/hooks";
+import { loginActionCreator } from "../../../redux/action/creator/auth";
 const Login = () => {
   const navigate = useNavigate();
-
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
-
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-    // role: "" || "user",
-  });
-
-  const handleChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-    console.log(data);
+  const onSubmit = data => {
+    dispatch(loginActionCreator(data))
   };
+  const toastId = useRef(null)
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
 
-    if (document.getElementById("agree-user").checked) {
-      dispatch(postLogin(data))
-        .unwrap()
+  const AuthLogin = useSelector(state => state.auth.register,shallowEqual) 
 
-        .then((item) => {
-          if (item.statusCode === 201) {
-            setTimeout(() => {
-              navigate("../home");
-            }, 2000);
-          } else {
-            console.log("Login Failed");
-          }
-        });
-    } else {
-      toast.warning("Please Agree terms and conditions", {
-        autoClose: 2000,
-        toastId: "warningAgreeUser",
-      });
+  useDidUpdate(() => {
+    const toastOptions = {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    };
+    if(AuthLogin?.isPending){
+      toast.dismiss()
+      toastId.current = toast.loading("Loading...",toastOptions)
     }
-  };
+    if(AuthLogin?.isRejected){
+      toast.dismiss()
+      toastId.current = toast.error(AuthLogin?.errorMessage,toastOptions)
+    }
+    if(AuthLogin?.isFulfilled){
+      toast.dismiss()
+      toastId.current = toast.success("Register Success",toastOptions)
+      navigate("../login");
+    }
+
+    if(errors?.email){
+      toast.dismiss(toastId.current)
+      toast.error(`Email : ${errors?.email?.message}`,toastOptions)
+    }
+    if(errors?.password){
+      toast.dismiss(toastId.current)
+      toast.error(`Password : ${errors?.password?.message}`,toastOptions)
+    }
+  },[AuthLogin, errors])
+  // const [data, setData] = useState({
+  //   email: "",
+  //   password: "",
+  //   // role: "" || "user",
+  // });
+
+  // const handleChange = (e) => {
+  //   setData({
+  //     ...data,
+  //     [e.target.name]: e.target.value,
+  //   });
+  //   console.log(data);
+  // };
+
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+
+  //   if (document.getElementById("agree-user").checked) {
+  //     dispatch(postLogin(data))
+  //       .unwrap()
+
+  //       .then((item) => {
+  //         if (item.statusCode === 201) {
+  //           setTimeout(() => {
+  //             navigate("../home");
+  //           }, 2000);
+  //         } else {
+  //           console.log("Login Failed");
+  //         }
+  //       });
+  //   } else {
+  //     toast.warning("Please Agree terms and conditions", {
+  //       autoClose: 2000,
+  //       toastId: "warningAgreeUser",
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
     document.title = "Login | World Recipes";
@@ -67,7 +108,9 @@ const Login = () => {
               />
             </div>
             <div className="col-lg-7">
-              <form onSubmit={handleLogin} className="w-100 form-sign-in">
+              <form 
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-100 form-sign-in">
                 <div className="text-center my-5">
                   <h2 className="text-warning">Welcome</h2>
                   <h6 className="text-muted">
@@ -80,12 +123,12 @@ const Login = () => {
                     Email address
                   </label>
                   <input
-                    name="email"
+                 {...register("email", { required: true})}
                     type="text"
                     className="form-control form-input"
-                    id="email"
+       
                     placeholder="Enter Email address"
-                    onChange={handleChange}
+                   // onChange={handleChange}
                   />
                 </div>
 
@@ -94,12 +137,12 @@ const Login = () => {
                     Password
                   </label>
                   <input
-                    name="password"
+    
                     type="password"
                     className="form-control form-input"
-                    id="password"
+                    {...register("password", { required: true})}
                     placeholder="Enter Password"
-                    onChange={handleChange}
+                  //  onChange={handleChange}
                   />
                 </div>
 
