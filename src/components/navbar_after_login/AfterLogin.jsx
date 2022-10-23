@@ -10,10 +10,29 @@ import switchIcon from "../../assets/switchBlue.svg";
 import oneway from "../../assets/oneway.svg";
 import round from "../../assets/roundtrip.svg";
 import arrow from "../../assets/arrow.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import qs from "qs";
+import { useSearchParams } from "react-router-dom";
 
 const Navi = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [show, setShow] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [searchParams, setSearchParams] = useSearchParams();
+  const paramsToObject = (entries) => {
+    const result = {};
+
+    for (const [key, value] of entries) {
+      result[key] = value;
+    }
+
+    return result;
+  };
+  const entries = searchParams.entries();
+  const objectParams = paramsToObject(entries);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -21,13 +40,13 @@ const Navi = () => {
   return (
     <>
       <div className="container ">
-        <nav  className="navbar navbar-expand-lg bg-light bg-transparent">
-          <div  className="container-fluid">
+        <nav className="navbar navbar-expand-lg bg-light bg-transparent">
+          <div className="container-fluid">
             <Link to="/home">
               <Logo />
             </Link>
             <button
-               className="navbar-toggler"
+              className="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent"
@@ -35,9 +54,12 @@ const Navi = () => {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span  className="navbar-toggler-icon"></span>
+              <span className="navbar-toggler-icon"></span>
             </button>
-            <div  className="collapse navbar-collapse" id="navbarSupportedContent">
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
               <div className={`navbar-nav me-auto mb-2 mb-lg-0`}>
                 <div className={`d-flex justify-content-end ${styles.resBtn}`}>
                   <Button
@@ -66,17 +88,40 @@ const Navi = () => {
 
                         <div>
                           <input
-                            name="origin"
                             type="text"
                             className={styles.origin}
-                            // onChange={(e) => setOrigin(e.target.value)}
+                            onChange={(e) => {
+                              const searchQuery = {
+                                ...qs.parse(objectParams.search),
+                                place_from: {
+                                  search: e.target.value,
+                                },
+                              };
+
+                              setSearchParams({
+                                ...objectParams,
+                                search: qs.stringify(searchQuery),
+                              });
+                            }}
                             required
                           />
                           <img src={switchIcon} alt="" />
                           <input
                             type="text"
                             className={styles.dest}
-                            // onChange={(e) => setDestination(e.target.value)}
+                            onChange={(e) => {
+                              const searchQuery = {
+                                ...qs.parse(objectParams.search),
+                                place_to: {
+                                  search: e.target.value,
+                                },
+                              };
+
+                              setSearchParams({
+                                ...objectParams,
+                                search: qs.stringify(searchQuery),
+                              });
+                            }}
                             required
                           />
                         </div>
@@ -100,16 +145,26 @@ const Navi = () => {
 
                       <div className={styles["modal-ticket"]}>
                         <p>Departure</p>
-                        <input
-                          type="date"
-                          name="departure"
-                          placeholder="dd-mm-yyyy"
-                          min="1997-01-01"
-                          max="2030-12-31"
-                          className={styles.date}
-                          // onChange={(e) => {
-                          //   setDate(e.target.value);
-                          // }}
+                        <ReactDatePicker
+                          selected={startDate}
+                          onChange={(date) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              departure: {
+                                gte: new Date(date),
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+
+                            setStartDate(new Date(date));
+                          }}
+                          timeInputLabel="Time:"
+                          dateFormat="MM/dd/yyyy h:mm a"
+                          showTimeInput
                         />
 
                         <p>How many person?</p>
@@ -118,9 +173,19 @@ const Navi = () => {
                             name="child"
                             id="child"
                             className={styles.ticket}
-                            // onChange={(e) => {
-                            //   setChild(e.target.value);
-                            // }}
+                            onChange={(e) => {
+                              const searchQuery = {
+                                ...qs.parse(objectParams.search),
+                                stock: {
+                                  gte: parseInt(e.target.value),
+                                },
+                              };
+
+                              setSearchParams({
+                                ...objectParams,
+                                search: qs.stringify(searchQuery),
+                              });
+                            }}
                           >
                             <option>Child</option>
                             <option value="1">1 Child</option>
@@ -133,9 +198,19 @@ const Navi = () => {
                             name="adult"
                             id="adult"
                             className={styles.ticket}
-                            // onChange={(e) => {
-                            //   setAdult(e.target.value);
-                            // }}
+                            onChange={(e) => {
+                              const searchQuery = {
+                                ...qs.parse(objectParams.search),
+                                stock: {
+                                  gte: parseInt(e.target.value),
+                                },
+                              };
+
+                              setSearchParams({
+                                ...objectParams,
+                                search: qs.stringify(searchQuery),
+                              });
+                            }}
                           >
                             <option>Adult</option>
                             <option value="1">1 Adult</option>
@@ -155,7 +230,19 @@ const Navi = () => {
                               value="economy"
                               type="radio"
                               name="class"
-                              // onClick={(e) => setTicketType(e.target.value)}
+                              onClick={(e) => {
+                                const searchQuery = {
+                                  ...qs.parse(objectParams.search),
+                                  type: {
+                                    equals: "ECONOMY",
+                                  },
+                                };
+
+                                setSearchParams({
+                                  ...objectParams,
+                                  search: qs.stringify(searchQuery),
+                                });
+                              }}
                             />
                             <label htmlFor="economy">Economy</label>
                           </div>
@@ -166,7 +253,19 @@ const Navi = () => {
                               value="business"
                               type="radio"
                               name="class"
-                              // onClick={(e) => setTicketType(e.target.value)}
+                              onClick={(e) => {
+                                const searchQuery = {
+                                  ...qs.parse(objectParams.search),
+                                  type: {
+                                    equals: "BUSINESS",
+                                  },
+                                };
+
+                                setSearchParams({
+                                  ...objectParams,
+                                  search: qs.stringify(searchQuery),
+                                });
+                              }}
                             />
                             <label htmlFor="business">Business</label>
                           </div>
@@ -177,7 +276,19 @@ const Navi = () => {
                               value="firstClass"
                               type="radio"
                               name="class"
-                              // onClick={(e) => setTicketType(e.target.value)}
+                              onClick={(e) => {
+                                const searchQuery = {
+                                  ...qs.parse(objectParams.search),
+                                  type: {
+                                    equals: "FIRSTCLASS",
+                                  },
+                                };
+
+                                setSearchParams({
+                                  ...objectParams,
+                                  search: qs.stringify(searchQuery),
+                                });
+                              }}
                             />
                             <label htmlFor="firstClass">First Class</label>
                           </div>
@@ -186,7 +297,10 @@ const Navi = () => {
 
                       <button
                         className={styles["modal-btn"]}
-                        // onClick={() => handleSearchFlight(origin, destination)}
+                        onClick={() => {
+                          navigate(`/search${location.search}`);
+                          handleClose();
+                        }}
                       >
                         <span>SEARCH FLIGHT</span>
                         <img src={arrow} alt="" />
