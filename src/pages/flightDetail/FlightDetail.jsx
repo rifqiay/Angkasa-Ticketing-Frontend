@@ -134,10 +134,10 @@ const FlightDetail = () => {
                 <span>Passenger: Adult</span>
                 <div className="d-flex">
                   <span className="mx-1">Same as contact person</span>
-                  <label class={`${styles.togglerwrapper} ${styles.style1}`}>
+                  <label  className={`${styles.togglerwrapper} ${styles.style1}`}>
                     <input type="checkbox" />
-                    <div class={styles.togglerslider}>
-                      <div class={styles.togglerknob}></div>
+                    <div  className={styles.togglerslider}>
+                      <div  className={styles.togglerknob}></div>
                     </div>
                   </label>
                 </div>

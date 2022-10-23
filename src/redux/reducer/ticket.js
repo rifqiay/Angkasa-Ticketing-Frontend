@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit'
 
 const initialState = {
+    get: {},
     getById: {},
     getByTicketId: {}
 }
@@ -33,10 +34,15 @@ const ticketReducer = createReducer(initialState, (builder) => {
             (action) => action.type.endsWith('ticket/fulfilled'),
             (state, action) => {
                 const type = action.type.split('/')
-                const data = {
+                let data = {
                     isFulfilled: true,
                     response: action.payload?.data?.data
                 }
+
+                data = action.type.startsWith('get/ticket') ? {
+                    ...data,
+                    pagination: action.payload?.data?.pagination
+                } : data
 
                 state[type[0]] = data
             }

@@ -25,7 +25,7 @@ const Mybooking = () => {
                 <div className="text-center">
                   <img src={ImageProfile} alt="imageProfile" />
                   <div className="mt-3"></div>
-                  <button type="button" class="btn btn-outline-primary">
+                  <button type="button"  className="btn btn-outline-primary">
                     Select Photo
                   </button>
                   <h3 className="mt-4"><b>Rifqi Ahmad Pratama</b></h3>
