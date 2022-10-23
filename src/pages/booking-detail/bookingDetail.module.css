@@ -4,14 +4,10 @@
   padding: 30px;
 }
 
-.bookingdetail_sect1 {
-  padding: 30px;
-  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
-  border-radius: 15px;
-  background: #ffffff;
-  margin: 30px 150px;
+.grey {
+  color: #A5A5A5;
 }
 
-.bookingdetail_sect2 {
-  padding: 20px;
+.detail_color {
+  font-size: 22px;
 }

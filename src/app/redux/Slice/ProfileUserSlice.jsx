@@ -33,14 +33,16 @@ export const putProfileUser = createAsyncThunk(
   "ProfileUser/putProfileUser",
   async (formData) => {
     let api = PrivateAxios();
-
+    console.log("Nilai Form data = ", formData);
     try {
       const token = localStorage.getItem("token");
       if (token) {
         const response = await api
           .put(
-            process.env.REACT_APP_API_BACKEND + "users/profile/1",
+            process.env.REACT_APP_API_BACKEND +
+              "http://localhost:3200/users/edit/403a42f3-96db-4aa5-b43c-c6d5652fc870",
             formData,
+
             {
               headers: {
                 "Content-Type": "multipart/form-data",
@@ -54,7 +56,8 @@ export const putProfileUser = createAsyncThunk(
           })
           .catch((err) => {
             // getProfileUser()
-            console.log(err);
+
+            console.log("Nilai Error  = ", err);
             toast.warning(err.response.data.message, { autoClose: 2500 });
             // alert(err);
           });

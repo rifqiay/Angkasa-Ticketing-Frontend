@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import styles from "./mybooking.module.css";
+import style from './myBookingStyle';
 import { useDispatch, useSelector } from "react-redux";
 
 import UserLogo from "../../assets/images/profile/user.png";
@@ -21,27 +22,26 @@ const Mybooking = () => {
           <div className="row">
             <div className="col-lg-4 mt-4">
               <div className={styles.sect1}>
-                <div className=" text-center">
+                <div className="text-center">
                   <img src={ImageProfile} alt="imageProfile" />
                   <div className="mt-3"></div>
                   <button type="button" class="btn btn-outline-primary">
                     Select Photo
                   </button>
-                  <h3 className="mt-4">Rifqi Ahmad Pratama</h3>
+                  <h3 className="mt-4"><b>Rifqi Ahmad Pratama</b></h3>
                   <div class="row">
-                    <div className="col-md-6 offset-md-3 ">
-                      <img src={map} alt="map" />
+                    <div className="col-md-12">
                       <p>Bandung, Indonesia</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="row justify-content-between">
-                  <div className="col-3">
+                  <div className="col-6">
                     <h5>Cards</h5>
                   </div>
-                  <div className="col-3">
-                    <h5>+Add</h5>
+                  <div className="col-6 text-end">
+                    <h5><a href="#" style={{ textDecoration: 'none' }}>+Add</a></h5>
                   </div>
                 </div>
 
@@ -60,76 +60,67 @@ const Mybooking = () => {
                 </div>
 
                 <div className=" row justify-content-center mt-4">
-                  <div className="col-4">
+                  <div className="col-3 text-center">
                     <img src={UserLogo} alt="userlogo" />
                   </div>
-                  <div className="col-4">
-                    <p className="ms-2">Profile</p>
+                  <div className="col-9">
+                    <p className="ms-2 text-start" style={style.blueFont}><b>Profile</b></p>
                   </div>
                 </div>
                 <div className=" row justify-content-center mt-4">
-                  <div className="col-4">
+                  <div className="col-3 text-center">
                     <img src={Rating} alt="userlogo" />
                   </div>
-                  <div className="col-4">
-                    <p className="ms-2">My Review</p>
+                  <div className="col-9">
+                    <p className="ms-2 text-start"><b>My Review</b></p>
                   </div>
                 </div>
                 <div className=" row justify-content-center mt-4">
-                  <div className="col-4">
+                  <div className="col-3 text-center">
                     <img src={Setting} alt="userlogo" />
                   </div>
-                  <div className="col-4">
-                    <p className="ms-2">Settings</p>
+                  <div className="col-9">
+                    <p className="ms-2 text-start"><b>Settings</b></p>
                   </div>
                 </div>
                 <div className=" row justify-content-center mt-4">
-                  <div className="col-4">
+                  <div className="col-3 text-center">
                     <img src={LogOut} alt="userlogo" />
                   </div>
-                  <div className="col-4">
-                    <p className="ms-2">Logout</p>
+                  <div className="col-9">
+                    <p className="ms-2 text-start" style={style.redFont}><b>Logout</b></p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="col-lg-8 mt-4">
-              <form
-                id="form-edit-profile"
-                // onSubmit={handleUpdate}
-              >
                 <div className={styles.sect2}>
-                  <h5>My BOOKING</h5>
+                  <h5 className={styles.blueSpace}>MY BOOKING</h5>
                   <div className="row justify-content-between">
-                    <div className="col-4">
-                      <h2>My Booking</h2>
+                    <div className="col-6 text-start">
+                      <h3><b>My Booking</b></h3>
                     </div>
-                    <div className="col-4">
-                      <p>Order History</p>
+                    <div className="col-6 text-end">
+                      <p style={style.blueFont}><b>Order History</b></p>
                     </div>
                   </div>
                 </div>
-              </form>
-              <form
-                id="form-edit-profile"
-                // onSubmit={handleUpdate}
-              >
                 <div className={styles.sect2}>
                   <p>Monday, 20 July '20 - 12:33</p>
                   <div className="d-flex">
-                    <h3>IDN</h3>
+                    <h3><b>IDN</b></h3>
                     <img className="ms-4" src={PlateImage} alt="PlateImage" />
-                    <h3 className="ms-4">IDN</h3>
+                    <h3 className="ms-4"><b>JPN</b></h3>
                   </div>
-                  <p>Garuda Indonesia, AB-221</p>
+                  <p className={styles.airlinesAndCode}>Garuda Indonesia, AB-221</p>
                   <hr />
                   <div className="row justify-content-between">
                     <div className="col-2">
-                      <p>Status</p>
+                      <h5 className={styles.greyFont}>Status</h5>
                     </div>
                     <div className="col-7">
-                      <p>Waiting for paymant</p>
+                      <p>Waiting for payment</p>
                     </div>
                     <div
                       className="col-3 d-flex"
@@ -139,7 +130,7 @@ const Mybooking = () => {
                       aria-expanded="false"
                       aria-controls="collapseWidthExample1"
                     >
-                      <p className="text-primary">View Details</p>
+                      <h5 className="text-primary">View Details</h5>
                       <img
                         src={ImageDetails}
                         alt="ImageDetails"
@@ -157,23 +148,18 @@ const Mybooking = () => {
                     </div>
                   </div>
                 </div>
-              </form>
-              <form
-                id="form-edit-profile"
-                // onSubmit={handleUpdate}
-              >
                 <div className={styles.sect2}>
                   <p>Monday, 20 July '20 - 12:33</p>
                   <div className="d-flex">
-                    <h3>IDN</h3>
+                    <h3><b>IDN</b></h3>
                     <img className="ms-4" src={PlateImage} alt="PlateImage" />
-                    <h3 className="ms-4">IDN</h3>
+                    <h3 className="ms-4"><b>JPN</b></h3>
                   </div>
-                  <p>Garuda Indonesia, AB-221</p>
+                  <p className={styles.airlinesAndCode}>Garuda Indonesia, AB-221</p>
                   <hr />
                   <div className="row justify-content-between">
                     <div className="col-2">
-                      <p>Status</p>
+                      <h5 className={styles.greyFont}>Status</h5>
                     </div>
                     <div className="col-7">
                       <p>Etiket issued</p>
@@ -186,7 +172,7 @@ const Mybooking = () => {
                       aria-expanded="false"
                       aria-controls="collapseWidthExample"
                     >
-                      <p className="text-primary">View Details</p>
+                      <h5 className="text-primary">View Details</h5>
                       <img
                         src={ImageDetails}
                         alt="ImageDetails"
@@ -204,7 +190,6 @@ const Mybooking = () => {
                     </div>
                   </div>
                 </div>
-              </form>
             </div>
           </div>
         </div>

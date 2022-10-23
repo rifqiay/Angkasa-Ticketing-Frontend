@@ -28,8 +28,6 @@ const SearchFlight = () => {
   const [airlines, setArilines] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [query, setQuery] = useSearchParams({});
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
   const [date, setDate] = useState("");
   const [ticket, setTicket] = useState("");
   const [ticketType, setTicketType] = useState("");
@@ -37,30 +35,16 @@ const SearchFlight = () => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
 
-  // const paramsToObject = (entries) => {
-  //   const result = {};
-  //   for (const [key, value] of entries) {
-  //     result[key] = value;
-  //   }
-  //   return result;
-  // };
-
-  // const entries = query.entries();
-  // const objectParams = paramsToObject(entries);
-  // const isMounted = useRef();
-
   const getFlight = async () => {
     try {
-      const result = await axios.get(
-        "http://localhost:8080/api/v1/ticket?limit=40"
-      );
+      const result = await axios.get(`http://localhost:8080/api/v1/ticket`);
       setFlights(result.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const changeSearch = (airline) => {
+  const changeSearch = () => {
     const newParams = {
       origin,
       destination,
@@ -73,94 +57,16 @@ const SearchFlight = () => {
     });
     setQuery({
       ...newParams,
-    });
-  };
-
-  const onHandleReset = () => {
-    let x = document.getElementsByClassName("checkbox");
-    for (let item of x) {
-      item.checked = false;
-    }
-    setDate("");
-    setTicketType("");
-    setTransitType("");
-    setFacilities("");
-    setArrival("");
-    setDeparture("");
-    setArilines("");
-    setSortBy("");
-    setMinPrice("");
-    setMaxPrice("");
-    const defaultParams = {
-      origin,
-      destination,
-    };
-    setParams({
-      ...defaultParams,
-    });
-    setQuery({
-      ...defaultParams,
     });
   };
 
   const itemsPerPage = 3;
 
-  // useEffect(() => {
-  //   if (!isMounted.current) {
-  //     if (objectParams) {
-  //       dispatch(
-  //         getRecipeActionCreator({
-  //           ...objectParams,
-  //         })
-  //       );
-  //     } else {
-  //       dispatch(getRecipeActionCreator());
-  //     }
-  //     isMounted.current = true;
-  //   } else {
-  //     dispatch(
-  //       getRecipeActionCreator({
-  //         ...objectParams,
-  //       })
-  //     );
-  //   }
-  // }, [query]);
-
   useEffect(() => {
-    getFlight();
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(flights.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(flights.length / itemsPerPage));
-
-    const newOrigin = query.get("origin");
-    const newDestination = query.get("destination");
-    const newParams = {
-      origin: newOrigin,
-      destination: newDestination,
-      // ...page
-    };
-    setOrigin(newOrigin);
-    setDestination(newDestination);
-    setParams({
-      ...params,
-      ...newParams,
-    });
-    const dataParam = {
-      origin: newOrigin,
-      destination: newDestination,
-      date,
-      ticketType,
-      departure,
-      arrival,
-      transitType,
-      facilities,
-      airlines,
-      minPrice,
-      maxPrice,
-      sortBy,
-    };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getFlight();
   }, [query, flights]);
 
   const handlePageClick = (event) => {
@@ -174,7 +80,7 @@ const SearchFlight = () => {
       </div>
       <div class="container">
         <div class={`row ${styles.wrapper}`}>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-between px-lg-0 px-4">
             <div class="w-50">
               <form class={`d-flex w-100 ${styles.wrapperfrom}`}>
                 <div>
@@ -289,14 +195,7 @@ const SearchFlight = () => {
           <div class="col-lg-3">
             <div class="d-flex justify-content-between">
               <h4>Filter</h4>
-              <strong
-                class="text-primary"
-                onClick={() => {
-                  onHandleReset();
-                }}
-              >
-                Reset
-              </strong>
+              <strong class="text-primary">Reset</strong>
             </div>
             <div class="card p-3 mt-3">
               <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -327,59 +226,6 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="direct"
                           className="checkbox"
-                          onChange={(e) => {
-                            let newDirect = "1";
-                            let allTransit = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              allTransit = transitType
-                                ? transitType + "." + newDirect
-                                : transitType + newDirect;
-                              setTransitType(allTransit);
-                              newParams = {
-                                transit: allTransit,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (transitType.includes(".")) {
-                                console.log("apakah berjalan");
-                                allTransit = transitType
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== "1";
-                                  });
-                                allTransit =
-                                  allTransit.length > 1
-                                    ? allTransit.join(".")
-                                    : allTransit.join("");
-                                setTransitType(allTransit);
-                                newParams = {
-                                  transit: allTransit,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setTransitType("");
-                                delete params.transit;
-                                setQuery({
-                                  ...params,
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                       <div class="d-flex justify-content-between">
@@ -388,59 +234,6 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="transit"
                           className="checkbox"
-                          onChange={(e) => {
-                            let newDirect = "2";
-                            let allTransit = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              allTransit = transitType
-                                ? transitType + "." + newDirect
-                                : transitType + newDirect;
-                              setTransitType(allTransit);
-                              newParams = {
-                                transit: allTransit,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (transitType.includes(".")) {
-                                console.log("apakah berjalan");
-                                allTransit = transitType
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== "2";
-                                  });
-                                allTransit =
-                                  allTransit.length > 1
-                                    ? allTransit.join(".")
-                                    : allTransit.join("");
-                                setTransitType(allTransit);
-                                newParams = {
-                                  transit: allTransit,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setTransitType("");
-                                delete params.transit;
-                                setQuery({
-                                  ...params,
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                       <div class="d-flex justify-content-between">
@@ -449,59 +242,6 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="transit2"
                           className="checkbox"
-                          onChange={(e) => {
-                            let newDirect = "3";
-                            let allTransit = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              allTransit = transitType
-                                ? transitType + "." + newDirect
-                                : transitType + newDirect;
-                              setTransitType(allTransit);
-                              newParams = {
-                                transit: allTransit,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (transitType.includes(".")) {
-                                console.log("apakah berjalan");
-                                allTransit = transitType
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== "3";
-                                  });
-                                allTransit =
-                                  allTransit.length > 1
-                                    ? allTransit.join(".")
-                                    : allTransit.join("");
-                                setTransitType(allTransit);
-                                newParams = {
-                                  transit: allTransit,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setTransitType("");
-                                delete params.transit;
-                                setQuery({
-                                  ...params,
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                     </div>
@@ -534,182 +274,15 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="luggage"
                           className="checkbox"
-                          onChange={(e) => {
-                            let luggage = "1";
-                            let newFacilities = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              newFacilities = facilities
-                                ? facilities + "." + luggage
-                                : facilities + luggage;
-                              setFacilities(newFacilities);
-                              newParams = {
-                                facilities: newFacilities,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (facilities.includes(".")) {
-                                console.log("apakah berjalan");
-                                newFacilities = facilities
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== "1";
-                                  });
-                                newFacilities =
-                                  newFacilities.length > 1
-                                    ? newFacilities.join(".")
-                                    : newFacilities.join("");
-                                setFacilities(newFacilities);
-                                newParams = {
-                                  facilities: newFacilities,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setFacilities("");
-                                delete params.facilities;
-                                setQuery({
-                                  ...params,
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                       <div class="d-flex justify-content-between">
                         <label for="meal">In-flight Meal</label>
-                        <input
-                          type="checkbox"
-                          id="meal"
-                          className="checkbox"
-                          onChange={(e) => {
-                            let meal = "2";
-                            let newFacilities = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              newFacilities = facilities
-                                ? facilities + "." + meal
-                                : facilities + meal;
-                              setFacilities(newFacilities);
-                              newParams = {
-                                facilities: newFacilities,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (facilities.includes(".")) {
-                                console.log("apakah berjalan");
-                                newFacilities = facilities
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== meal;
-                                  });
-                                newFacilities =
-                                  newFacilities.length > 1
-                                    ? newFacilities.join(".")
-                                    : newFacilities.join("");
-                                setFacilities(newFacilities);
-                                newParams = {
-                                  facilities: newFacilities,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setFacilities("");
-                                delete params.facilities;
-                                setQuery({
-                                  ...params,
-                                });
-                              }
-                            }
-                          }}
-                        />
+                        <input type="checkbox" id="meal" className="checkbox" />
                       </div>
                       <div class="d-flex justify-content-between">
                         <label for="wifi">Wi-fi</label>
-                        <input
-                          type="checkbox"
-                          id="wifi"
-                          className="checkbox"
-                          onChange={(e) => {
-                            let wifi = "3";
-                            let newFacilities = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              newFacilities = facilities
-                                ? facilities + "." + wifi
-                                : facilities + wifi;
-                              setFacilities(newFacilities);
-                              newParams = {
-                                facilities: newFacilities,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (facilities.includes(".")) {
-                                console.log("apakah berjalan");
-                                newFacilities = facilities
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== wifi;
-                                  });
-                                newFacilities =
-                                  newFacilities.length > 1
-                                    ? newFacilities.join(".")
-                                    : newFacilities.join("");
-                                setFacilities(newFacilities);
-                                newParams = {
-                                  facilities: newFacilities,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setFacilities("");
-                                delete params.facilities;
-                                setQuery({
-                                  ...params,
-                                });
-                              }
-                            }
-                          }}
-                        />
+                        <input type="checkbox" id="wifi" className="checkbox" />
                       </div>
                     </div>
                   </div>
@@ -741,121 +314,11 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="dinihari"
                           className="checkbox"
-                          onChange={(e) => {
-                            let time = "dinihari";
-                            let allDeparture = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              allDeparture = departure
-                                ? departure + "." + time
-                                : departure + time;
-                              setDeparture(allDeparture);
-                              newParams = {
-                                departure: allDeparture,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (departure.includes(".")) {
-                                allDeparture = departure
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== "dinihari";
-                                  });
-                                allDeparture =
-                                  allDeparture.length > 1
-                                    ? allDeparture.join(".")
-                                    : allDeparture.join("");
-                                setDeparture(allDeparture);
-                                newParams = {
-                                  departure: allDeparture,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setDeparture("");
-                                delete params.departure;
-                                setQuery({
-                                  ...params,
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                       <div class="d-flex justify-content-between">
                         <label for="pagi">06:00 - 12:00</label>
-                        <input
-                          type="checkbox"
-                          id="pagi"
-                          className="checkbox"
-                          onChange={(e) => {
-                            let time = "pagi";
-                            let allDeparture = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              allDeparture = departure
-                                ? departure + "." + time
-                                : departure + time;
-                              setDeparture(allDeparture);
-                              newParams = {
-                                departure: allDeparture,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (departure.includes(".")) {
-                                console.log("apakah berjalan");
-                                allDeparture = departure
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== "pagi";
-                                  });
-                                allDeparture =
-                                  allDeparture.length > 1
-                                    ? allDeparture.join(".")
-                                    : allDeparture.join("");
-                                setDeparture(allDeparture);
-                                newParams = {
-                                  departure: allDeparture,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setDeparture("");
-                                delete params.departure;
-                                setQuery({
-                                  ...params,
-                                  // ...newParams
-                                });
-                              }
-                            }
-                          }}
-                        />
+                        <input type="checkbox" id="pagi" className="checkbox" />
                       </div>
                       <div class="d-flex justify-content-between">
                         <label for="siang">12:00 - 18:00</label>
@@ -863,60 +326,6 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="siang"
                           className="checkbox"
-                          onChange={(e) => {
-                            let time = "sore";
-                            let allDeparture = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              allDeparture = departure
-                                ? departure + "." + time
-                                : departure + time;
-                              setDeparture(allDeparture);
-                              newParams = {
-                                departure: allDeparture,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (departure.includes(".")) {
-                                console.log("apakah berjalan");
-                                allDeparture = departure
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== "sore";
-                                  });
-                                allDeparture =
-                                  allDeparture.length > 1
-                                    ? allDeparture.join(".")
-                                    : allDeparture.join("");
-                                setDeparture(allDeparture);
-                                newParams = {
-                                  departure: allDeparture,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setDeparture("");
-                                delete params.departure;
-                                setQuery({
-                                  ...params,
-                                  // ...newParams
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                       <div class="d-flex justify-content-between">
@@ -925,60 +334,6 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="malam"
                           className="checkbox"
-                          onChange={(e) => {
-                            let time = "malam";
-                            let allDeparture = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              allDeparture = departure
-                                ? departure + "." + time
-                                : departure + time;
-                              setDeparture(allDeparture);
-                              newParams = {
-                                departure: allDeparture,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (departure.includes(".")) {
-                                console.log("apakah berjalan");
-                                allDeparture = departure
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== "malam";
-                                  });
-                                allDeparture =
-                                  allDeparture.length > 1
-                                    ? allDeparture.join(".")
-                                    : allDeparture.join("");
-                                setDeparture(allDeparture);
-                                newParams = {
-                                  departure: allDeparture,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setDeparture("");
-                                delete params.departure;
-                                setQuery({
-                                  ...params,
-                                  // ...newParams
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                     </div>
@@ -1011,60 +366,6 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="diniharia"
                           className="checkbox"
-                          onChange={(e) => {
-                            let time = "dinihari";
-                            let newArrival = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              newArrival = arrival
-                                ? arrival + "." + time
-                                : arrival + time;
-                              setArrival(newArrival);
-                              newParams = {
-                                arrival: newArrival,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (arrival.includes(".")) {
-                                console.log("apakah berjalan");
-                                newArrival = arrival
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== time;
-                                  });
-                                newArrival =
-                                  newArrival.length > 1
-                                    ? newArrival.join(".")
-                                    : newArrival.join("");
-                                setArrival(newArrival);
-                                newParams = {
-                                  departure: newArrival,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setArrival("");
-                                delete params.arrival;
-                                setQuery({
-                                  ...params,
-                                  // ...newParams
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                       <div class="d-flex justify-content-between">
@@ -1073,60 +374,6 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="pagia"
                           className="checkbox"
-                          onChange={(e) => {
-                            let time = "pagi";
-                            let newArrival = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              newArrival = arrival
-                                ? arrival + "." + time
-                                : arrival + time;
-                              setArrival(newArrival);
-                              newParams = {
-                                arrival: newArrival,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (arrival.includes(".")) {
-                                console.log("apakah berjalan");
-                                newArrival = arrival
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== time;
-                                  });
-                                newArrival =
-                                  newArrival.length > 1
-                                    ? newArrival.join(".")
-                                    : newArrival.join("");
-                                setArrival(newArrival);
-                                newParams = {
-                                  departure: newArrival,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setArrival("");
-                                delete params.arrival;
-                                setQuery({
-                                  ...params,
-                                  // ...newParams
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                       <div class="d-flex justify-content-between">
@@ -1135,60 +382,6 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="sianga"
                           className="checkbox"
-                          onChange={(e) => {
-                            let time = "sore";
-                            let newArrival = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              newArrival = arrival
-                                ? arrival + "." + time
-                                : arrival + time;
-                              setArrival(newArrival);
-                              newParams = {
-                                arrival: newArrival,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (arrival.includes(".")) {
-                                console.log("apakah berjalan");
-                                newArrival = arrival
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== time;
-                                  });
-                                newArrival =
-                                  newArrival.length > 1
-                                    ? newArrival.join(".")
-                                    : newArrival.join("");
-                                setArrival(newArrival);
-                                newParams = {
-                                  departure: newArrival,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setArrival("");
-                                delete params.arrival;
-                                setQuery({
-                                  ...params,
-                                  // ...newParams
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                       <div class="d-flex justify-content-between">
@@ -1197,60 +390,6 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="malama"
                           className="checkbox"
-                          onChange={(e) => {
-                            let time = "malam";
-                            let newArrival = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              newArrival = arrival
-                                ? arrival + "." + time
-                                : arrival + time;
-                              setArrival(newArrival);
-                              newParams = {
-                                arrival: newArrival,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (arrival.includes(".")) {
-                                console.log("apakah berjalan");
-                                newArrival = arrival
-                                  .split(".")
-                                  .filter((item) => {
-                                    return item !== time;
-                                  });
-                                newArrival =
-                                  newArrival.length > 1
-                                    ? newArrival.join(".")
-                                    : newArrival.join("");
-                                setArrival(newArrival);
-                                newParams = {
-                                  departure: newArrival,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setArrival("");
-                                delete params.arrival;
-                                setQuery({
-                                  ...params,
-                                  // ...newParams
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                     </div>
@@ -1283,181 +422,15 @@ const SearchFlight = () => {
                           type="checkbox"
                           id="garuda"
                           className="checkbox"
-                          onChange={(e) => {
-                            let airline = "garudaindonesia";
-                            let newAirlines = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              newAirlines = airlines
-                                ? airlines + "|" + airline
-                                : airlines + airline;
-                              setArilines(newAirlines);
-                              newParams = {
-                                airlines: newAirlines,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (airlines.includes("|")) {
-                                // console.log("apakah berjalan");
-                                newAirlines = airlines
-                                  .split("|")
-                                  .filter((item) => {
-                                    return item !== airline;
-                                  });
-                                newAirlines =
-                                  newAirlines.length > 1
-                                    ? newAirlines.join("|")
-                                    : newAirlines.join("");
-                                setArilines(newAirlines);
-                                newParams = {
-                                  airlines: newAirlines,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setArilines("");
-                                delete params.airlines;
-                                setQuery({
-                                  ...params,
-                                });
-                              }
-                            }
-                          }}
                         />
                       </div>
                       <div class="d-flex justify-content-between">
                         <label for="air">Air Asia</label>
-                        <input
-                          type="checkbox"
-                          className="checkbox"
-                          onChange={(e) => {
-                            let airline = "airasia";
-                            let newAirlines = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              newAirlines = airlines
-                                ? airlines + "|" + airline
-                                : airlines + airline;
-                              setArilines(newAirlines);
-                              newParams = {
-                                airlines: newAirlines,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (airlines.includes("|")) {
-                                // console.log("apakah berjalan");
-                                newAirlines = airlines
-                                  .split("|")
-                                  .filter((item) => {
-                                    return item !== airline;
-                                  });
-                                newAirlines =
-                                  newAirlines.length > 1
-                                    ? newAirlines.join("|")
-                                    : newAirlines.join("");
-                                setArilines(newAirlines);
-                                newParams = {
-                                  airlines: newAirlines,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setArilines("");
-                                delete params.airlines;
-                                setQuery({
-                                  ...params,
-                                });
-                              }
-                            }
-                          }}
-                        />
+                        <input type="checkbox" className="checkbox" />
                       </div>
                       <div class="d-flex justify-content-between">
                         <label for="lion">Lion Air</label>
-                        <input
-                          type="checkbox"
-                          id="lion"
-                          className="checkbox"
-                          onChange={(e) => {
-                            let airline = "lionair";
-                            let newAirlines = "";
-                            let newParams = {};
-                            if (e.target.checked) {
-                              newAirlines = airlines
-                                ? airlines + "|" + airline
-                                : airlines + airline;
-                              setArilines(newAirlines);
-                              newParams = {
-                                airlines: newAirlines,
-                              };
-                              setParams({
-                                ...params,
-                                ...newParams,
-                              });
-                              setQuery({
-                                ...params,
-                                ...newParams,
-                              });
-                            } else {
-                              if (airlines.includes("|")) {
-                                // console.log("apakah berjalan");
-                                newAirlines = airlines
-                                  .split("|")
-                                  .filter((item) => {
-                                    return item !== airline;
-                                  });
-                                newAirlines =
-                                  newAirlines.length > 1
-                                    ? newAirlines.join("|")
-                                    : newAirlines.join("");
-                                setArilines(newAirlines);
-                                newParams = {
-                                  airlines: newAirlines,
-                                };
-                                setParams({
-                                  ...params,
-                                  ...newParams,
-                                });
-                                setQuery({
-                                  ...params,
-                                  ...newParams,
-                                });
-                              } else {
-                                setArilines("");
-                                delete params.airlines;
-                                setQuery({
-                                  ...params,
-                                });
-                              }
-                            }
-                          }}
-                        />
+                        <input type="checkbox" id="lion" className="checkbox" />
                       </div>
                     </div>
                   </div>

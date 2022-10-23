@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import './index.css';
 import reportWebVitals from "./reportWebVitals";
-
+import "./index.css";
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/bundle";
@@ -16,13 +16,13 @@ import "bootstrap/dist/js/bootstrap.min.js";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import { store } from './redux/store'
+import { store } from "./redux/store";
 import { HelmetProvider } from "react-helmet-async";
-import { BrowserRouter } from './router/browserHistory'
-import { Provider as ReduxProvider } from 'react-redux'
-import { injectStore } from './utils/http'
+import { BrowserRouter } from "./router/browserHistory";
+import { Provider as ReduxProvider } from "react-redux";
+import { injectStore } from "./utils/http";
 
-injectStore(store)
+injectStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
