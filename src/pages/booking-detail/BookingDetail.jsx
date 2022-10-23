@@ -25,22 +25,22 @@ const BookingDetail = () => {
                     <div className="row">
                       <div className="col-lg-6">
                         <img src={ImageGaruda} alt="ImageGaruda" />
-                        <div class="row justify-content-evenly mt-5">
-                          <div class="col-4">
+                        <div  className="row justify-content-evenly mt-5">
+                          <div  className="col-4">
                             <p>Code</p>
                             <p>AB-221</p>
                           </div>
-                          <div class="col-6">
+                          <div  className="col-6">
                             <p>Class</p>
                             <p>Economy</p>
                           </div>
                         </div>
-                        <div class="row justify-content-evenly mt-5">
-                          <div class="col-4">
+                        <div  className="row justify-content-evenly mt-5">
+                          <div  className="col-4">
                             <p>Terminal</p>
                             <p>A</p>
                           </div>
-                          <div class="col-6">
+                          <div  className="col-6">
                             <p>Gate</p>
                             <p>221</p>
                           </div>

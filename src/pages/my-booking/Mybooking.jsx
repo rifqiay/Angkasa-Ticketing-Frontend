@@ -24,11 +24,11 @@ const Mybooking = () => {
                 <div className=" text-center">
                   <img src={ImageProfile} alt="imageProfile" />
                   <div className="mt-3"></div>
-                  <button type="button" class="btn btn-outline-primary">
+                  <button type="button"  className="btn btn-outline-primary">
                     Select Photo
                   </button>
                   <h3 className="mt-4">Rifqi Ahmad Pratama</h3>
-                  <div class="row">
+                  <div  className="row">
                     <div className="col-md-6 offset-md-3 ">
                       <img src={map} alt="map" />
                       <p>Bandung, Indonesia</p>

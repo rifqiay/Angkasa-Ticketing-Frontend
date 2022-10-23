@@ -21,13 +21,13 @@ const Navi = () => {
   return (
     <>
       <div className="container ">
-        <nav class="navbar navbar-expand-lg bg-light bg-transparent">
-          <div class="container-fluid">
+        <nav  className="navbar navbar-expand-lg bg-light bg-transparent">
+          <div  className="container-fluid">
             <Link to="/home">
               <Logo />
             </Link>
             <button
-              class="navbar-toggler"
+               className="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent"
@@ -35,9 +35,9 @@ const Navi = () => {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="navbar-toggler-icon"></span>
+              <span  className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div  className="collapse navbar-collapse" id="navbarSupportedContent">
               <div className={`navbar-nav me-auto mb-2 mb-lg-0`}>
                 <div className={`d-flex justify-content-end ${styles.resBtn}`}>
                   <Button
