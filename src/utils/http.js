@@ -28,7 +28,7 @@ axiosInstance.interceptors.request.use(
 
     const token = localStorage.getItem("@acc_token");
 
-    if (token !== null) config.headers.common.Authorization = `Bearer ${token}`;
+    if (token !== null) config.headers.Authorization = `Bearer ${token}`;
 
     return config;
   },
@@ -48,7 +48,7 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     if (
-      originalRequest.url.includes("/auth/refresh-token") &&
+      originalRequest?.url?.includes("/auth/refresh-token") &&
       (error?.response?.data?.data?.message === "jwt expired" ||
         error?.response?.data?.data?.message === "Refresh token unavailable" ||
         error?.response?.data?.data?.message ===
@@ -61,7 +61,7 @@ axiosInstance.interceptors.response.use(
     }
 
     if (
-      !originalRequest.url.includes("/auth/refresh-token") &&
+      !originalRequest?.url?.includes("/auth/refresh-token") &&
       (error?.response?.data?.data?.message === "jwt expired" ||
         error?.response?.data?.data?.message === "Session unavailable" ||
         error?.response?.data?.data?.message ===

@@ -1,13 +1,12 @@
-import React, { useState, useEffect, Fragment ,useRef} from "react";
+import React, { useEffect, useRef} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { shallowEqual, useDispatch,useSelector } from "react-redux";
-import { postLogin } from "../../../app/redux/Slice/LoginSlice";
-
 import { toast } from "react-toastify";
 import BackgroundImage from "../../../assets/images/auth/illustration.png";
 import { useDidUpdate } from "@mantine/hooks";
 import { loginActionCreator } from "../../../redux/action/creator/auth";
+
 const Login = () => {
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -16,9 +15,7 @@ const Login = () => {
     dispatch(loginActionCreator(data))
   };
   const toastId = useRef(null)
-
-
-  const AuthLogin = useSelector(state => state.auth.register,shallowEqual) 
+  const AuthLogin = useSelector(state => state.auth.login,shallowEqual) 
 
   useDidUpdate(() => {
     const toastOptions = {
@@ -30,66 +27,33 @@ const Login = () => {
       draggable: true,
       progress: undefined,
     };
+
     if(AuthLogin?.isPending){
       toast.dismiss()
       toastId.current = toast.loading("Loading...",toastOptions)
     }
+
     if(AuthLogin?.isRejected){
       toast.dismiss()
       toastId.current = toast.error(AuthLogin?.errorMessage,toastOptions)
     }
+
     if(AuthLogin?.isFulfilled){
       toast.dismiss()
-      toastId.current = toast.success("Register Success",toastOptions)
-      navigate("../login");
+      toastId.current = toast.success("Login Success",toastOptions)
+      navigate("../");
     }
 
     if(errors?.email){
       toast.dismiss(toastId.current)
       toast.error(`Email : ${errors?.email?.message}`,toastOptions)
     }
+
     if(errors?.password){
       toast.dismiss(toastId.current)
       toast.error(`Password : ${errors?.password?.message}`,toastOptions)
     }
   },[AuthLogin, errors])
-  // const [data, setData] = useState({
-  //   email: "",
-  //   password: "",
-  //   // role: "" || "user",
-  // });
-
-  // const handleChange = (e) => {
-  //   setData({
-  //     ...data,
-  //     [e.target.name]: e.target.value,
-  //   });
-  //   console.log(data);
-  // };
-
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-
-  //   if (document.getElementById("agree-user").checked) {
-  //     dispatch(postLogin(data))
-  //       .unwrap()
-
-  //       .then((item) => {
-  //         if (item.statusCode === 201) {
-  //           setTimeout(() => {
-  //             navigate("../home");
-  //           }, 2000);
-  //         } else {
-  //           console.log("Login Failed");
-  //         }
-  //       });
-  //   } else {
-  //     toast.warning("Please Agree terms and conditions", {
-  //       autoClose: 2000,
-  //       toastId: "warningAgreeUser",
-  //     });
-  //   }
-  // };
 
   useEffect(() => {
     document.title = "Login | World Recipes";
@@ -128,7 +92,6 @@ const Login = () => {
                     className="form-control form-input"
        
                     placeholder="Enter Email address"
-                   // onChange={handleChange}
                   />
                 </div>
 
@@ -142,7 +105,6 @@ const Login = () => {
                     className="form-control form-input"
                     {...register("password", { required: true})}
                     placeholder="Enter Password"
-                  //  onChange={handleChange}
                   />
                 </div>
 
