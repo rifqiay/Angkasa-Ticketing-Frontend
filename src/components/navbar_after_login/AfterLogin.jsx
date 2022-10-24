@@ -128,14 +128,42 @@ const Navi = () => {
                       </div>
 
                       <div className={styles["modal-trip"]}>
-                        <button>
+                        <button
+                          onClick={(e) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              trip: {
+                                equals: "ONEWAY",
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+                          }}
+                        >
                           <div>
                             <img src={oneway} alt="" />
                             <span>One way</span>
                           </div>
                         </button>
 
-                        <button>
+                        <button
+                          onClick={(e) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              trip: {
+                                equals: "ROUNDTRIP",
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+                          }}
+                        >
                           <div>
                             <img src={round} alt="" />
                             <span>Round trip</span>
