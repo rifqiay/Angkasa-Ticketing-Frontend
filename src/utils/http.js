@@ -91,6 +91,7 @@ const AUTHENTICATION_PATH = "/auth";
 const PROFILE_PATH = "/profile";
 const TICKET_PATH = "/ticket";
 const ORDER_PATH = "/order";
+const AIRLINE_PATH = "/airline";
 
 const queryParams = (value = {}) => {
   return {
@@ -144,3 +145,13 @@ export const payBookingByBookingId = async (bookingId = null) =>
   await axiosInstance.put(`${ORDER_PATH}/pay/booking/${bookingId}`);
 export const cancelBookingByBookingId = async (bookingId = null) =>
   await axiosInstance.put(`${ORDER_PATH}/cancel/booking/${bookingId}`);
+
+export const getAirlines = async (filter = {}) => {
+  const isAirlineFiltered = Object.keys(filter).length;
+
+  if (isAirlineFiltered) {
+    return await axiosInstance.get(AIRLINE_PATH, queryParams(filter));
+  } else {
+    return await axiosInstance.get(AIRLINE_PATH);
+  }
+};

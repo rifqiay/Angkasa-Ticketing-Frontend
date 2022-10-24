@@ -1,32 +1,39 @@
-import React, { useState, useEffect } from "react";
-import styles from "./flightDetail.module.css";
+import React, { useEffect, useState } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Check from "../../assets/check.png";
+import Destination from "../../assets/dst.png";
 import Banner from "../../assets/img1.png";
 import WarningLogo from "../../assets/warning.png";
-import Destination from "../../assets/dst.png";
-import Check from "../../assets/check.png";
-import Garuda from "../../assets/garuda-indonesia.svg";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import { getTicketByIdActionCreator } from "../../redux/action/creator/ticket";
+import { getProfileActionCreator } from "../../redux/action/creator/profile";
+import { bookingTicketByIdActionCreator } from "../../redux/action/creator/booking";
+import styles from "./flightDetail.module.css";
+import moment from "moment/moment";
 
 const FlightDetail = () => {
   const { id } = useParams();
-  const [data, setData] = useState("");
-
-  const getData = async () => {
-    try {
-      const result = await axios.get(
-        `http://localhost:8080/api/v1/ticket/${id}`
-      );
-      setData(result?.data?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const navigate = useNavigate();
+  const [isChecked, setIsChecked] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const zoneName = moment().locale("id");
+  const dispatch = useDispatch();
+  const getTicketById = useSelector(
+    (state) => state.ticket.getById,
+    shallowEqual
+  );
+  const getProfile = useSelector((state) => state.profile.get, shallowEqual);
 
   useEffect(() => {
-    getData();
+    dispatch(getTicketByIdActionCreator(id));
+    dispatch(getProfileActionCreator());
   }, [id]);
-  console.log(data);
+
+  const handlePayment = (ticketId, data) => {
+    console.log(ticketId, data);
+    dispatch(bookingTicketByIdActionCreator({ id: ticketId, data }));
+    navigate("/my-booking");
+  };
   return (
     <>
       <div className="container-fluid">
@@ -44,9 +51,10 @@ const FlightDetail = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="Insert Full Name"
                   className="w-100 p-2"
                   id="fullname"
+                  value={getProfile?.response?.name}
+                  disabled
                 />
               </div>
               <div className="mt-2">
@@ -55,9 +63,10 @@ const FlightDetail = () => {
                 </label>
                 <input
                   type="email"
-                  placeholder="Insert your Email"
                   className="w-100 p-2"
                   id="email"
+                  value={getProfile?.response?.user.email}
+                  disabled
                 />
               </div>
               <div className="mt-2">
@@ -66,9 +75,10 @@ const FlightDetail = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="Insert Your Phone Number"
                   className="w-100 p-2"
                   id="phone"
+                  value={getProfile?.response?.phone}
+                  disabled
                 />
               </div>
               <div
@@ -76,7 +86,7 @@ const FlightDetail = () => {
               >
                 <div className="ms-4">
                   <img src={WarningLogo} alt="" />
-                  <span className="ms-2">
+                  <span className="ms-2 text-light">
                     Make sure the customer data is correct.
                   </span>
                 </div>
@@ -92,22 +102,32 @@ const FlightDetail = () => {
             <div className="card p-3">
               <div className="d-flex align-items-center">
                 <img
-                  src={data?.airline?.thumbnail}
+                  src={getTicketById?.response?.airline?.thumbnail}
                   width="100px"
                   height="45px"
                   alt=""
                 />
-                <h4 className="ms-3">{data?.airline?.title}</h4>
+                <h4 className="ms-3">
+                  {getTicketById?.response?.airline?.title}
+                </h4>
               </div>
               <div className="d-flex justify-content-evenly my-4">
-                <h5>{data?.place_from}</h5>
+                <h5>{getTicketById?.response?.place_from}</h5>
                 <div>
                   <img src={Destination} alt="" />
                 </div>
-                <h5>{data?.place_to}</h5>
+                <h5>{getTicketById?.response?.place_to}</h5>
               </div>
               <div>
-                <strong>Sunday, 15 August 2020 . 12:33 - 15:21</strong>
+                <strong>
+                  {moment(getTicketById?.response?.departure)
+                    .locale(zoneName)
+                    .format("MMMM Do YYYY, h:mm A")}{" "}
+                  -{" "}
+                  {moment(getTicketById?.response?.arival)
+                    .locale(zoneName)
+                    .format("LT")}
+                </strong>
               </div>
               <div className="mt-4">
                 <img src={Check} alt="" />
@@ -120,7 +140,9 @@ const FlightDetail = () => {
               <hr />
               <div className="d-flex justify-content-between">
                 <h4>Total Payment</h4>
-                <h3 className="text-primary">$ 145,00</h3>
+                <h3 className="text-primary">
+                  $ {getTicketById?.response?.price}
+                </h3>
               </div>
             </div>
           </div>
@@ -134,28 +156,39 @@ const FlightDetail = () => {
                 <span>Passenger: Adult</span>
                 <div className="d-flex">
                   <span className="mx-1">Same as contact person</span>
-                  <label  className={`${styles.togglerwrapper} ${styles.style1}`}>
-                    <input type="checkbox" />
-                    <div  className={styles.togglerslider}>
-                      <div  className={styles.togglerknob}></div>
+                  <label
+                    className={`${styles.togglerwrapper} ${styles.style1}`}
+                  >
+                    <input
+                      type="checkbox"
+                      onChange={(e) => {
+                        setIsChecked(e.target.checked);
+                        if (!isChecked) {
+                          setFullName(getProfile?.response?.name);
+                        } else {
+                          setFullName("");
+                        }
+                      }}
+                    />
+                    <div className={styles.togglerslider}>
+                      <div className={styles.togglerknob}></div>
                     </div>
                   </label>
                 </div>
               </div>
               <label className="mt-3 mb-1">Title</label>
               <div className="input-group flex-nowrap">
-                <select name="title" id="title" required>
+                <select
+                  name="title"
+                  id="title"
+                  className="p-2 border-0"
+                  required
+                >
                   <option value="Mr.">Mr.</option>
                   <option value="Mrs.">Mrs.</option>
                 </select>
-                <input
-                  type="text"
-                  className="form-control p-2"
-                  placeholder="Username"
-                  aria-label="Username"
-                  aria-describedby="addon-wrapping"
-                />
               </div>
+              <hr />
               <div className="mt-3">
                 <label for="fullname" className="mb-1">
                   Full Name
@@ -165,22 +198,23 @@ const FlightDetail = () => {
                   placeholder="Insert Your Full Name"
                   id="fullname"
                   className="w-100 p-2"
+                  value={fullName}
                 />
               </div>
               <label className="mt-3 mb-1">Nationality</label>
               <div className="input-group flex-nowrap">
-                <select name="national" id="national" required>
+                <select
+                  name="national"
+                  id="national"
+                  className="p-2 border-0"
+                  required
+                >
+                  <option>National</option>
                   <option value="indonesia">Indonesia</option>
                   <option value="japan">Japan</option>
                 </select>
-                <input
-                  type="text"
-                  className="form-control p-2"
-                  placeholder="Username"
-                  aria-label="Username"
-                  aria-describedby="addon-wrapping"
-                />
               </div>
+              <hr />
             </div>
           </div>
         </div>
@@ -204,10 +238,16 @@ const FlightDetail = () => {
               <strong>Get travel compensation up to $ 10.000,00</strong>
             </div>
             <div className="d-flex justify-content-center">
-              <button className="btn btn-primary w-50 mt-4">
-                <Link to={`/my-booking`} className="text-light">
-                  Proceed to Payment
-                </Link>
+              <button
+                className="btn btn-primary w-50 mt-4"
+                onClick={() =>
+                  handlePayment(getTicketById?.response?.id, {
+                    passenger: 1,
+                    adult: 1,
+                  })
+                }
+              >
+                Proceed to Payment
               </button>
             </div>
           </div>

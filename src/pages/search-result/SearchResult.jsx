@@ -1,30 +1,29 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useRef } from "react";
+import { useDidUpdate } from "@mantine/hooks";
+import humanizeDuration from "humanize-duration";
+import moment from "moment/moment";
+import qs from "qs";
+import React, { useEffect, useRef, useState } from "react";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import ReactPaginate from "react-paginate";
-import styles from "./searchFlight.module.css";
-import "./pagination.css";
-import iconflight from "../../assets/iconflight.png";
-import wifiIcon from "../../assets/wifi.svg";
-import luggageIcon from "../../assets/luggage.svg";
-import mealIcon from "../../assets/meal.svg";
-import { useLocation, useSearchParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import banner from "../../assets/img1.png";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import arrow from "../../assets/arrow.png";
 import elips from "../../assets/elipse-putih.png";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { useDidUpdate } from "@mantine/hooks";
-import { toast } from "react-toastify";
+import iconflight from "../../assets/iconflight.png";
+import banner from "../../assets/img1.png";
+import luggageIcon from "../../assets/luggage.svg";
+import mealIcon from "../../assets/meal.svg";
+import wifiIcon from "../../assets/wifi.svg";
 import { getTicketsActionCreator } from "../../redux/action/creator/ticket";
-import moment from "moment/moment";
-import ReactDatePicker from "react-datepicker";
-import qs from "qs";
-import "react-datepicker/dist/react-datepicker.css";
-import humanizeDuration from "humanize-duration";
+import { getAirlinesActionCreator } from "../../redux/action/creator/airline";
+import "./pagination.css";
+import styles from "./searchFlight.module.css";
 
 const SearchFlight = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const [startDate, setStartDate] = useState(new Date());
   const [searchParams, setSearchParams] = useSearchParams();
   const paramsToObject = (entries) => {
@@ -39,8 +38,10 @@ const SearchFlight = () => {
   const entries = searchParams.entries();
   const objectParams = paramsToObject(entries);
   const isMounted = useRef();
+  console.log(isMounted);
   const toastId = useRef(null);
   const getAll = useSelector((state) => state.ticket.get, shallowEqual);
+  const getAirlines = useSelector((state) => state.airline.get, shallowEqual);
   const zoneName = moment().locale("id");
   const formatingDateTime = (value) => {
     const dateNow = moment().format("YYYY-MM-DD");
@@ -73,6 +74,10 @@ const SearchFlight = () => {
       );
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    dispatch(getAirlinesActionCreator());
+  }, []);
 
   useDidUpdate(() => {
     const toastOptions = {
@@ -682,24 +687,32 @@ const SearchFlight = () => {
                     aria-labelledby="flush-headingOne"
                     data-bs-parent="#accordionFlushExample"
                   >
-                    <div className="accordion-body">
-                      <div className="d-flex justify-content-between">
-                        <label for="garuda">Garuda Indonesia</label>
-                        <input
-                          type="checkbox"
-                          id="garuda"
-                          className="checkbox"
-                        />
+                    {getAirlines?.response?.map((item, index) => (
+                      <div className="accordion-body" key={index}>
+                        <div className="d-flex justify-content-between">
+                          <label for="garuda">{item.title}</label>
+                          <input
+                            type="radio"
+                            name="airline"
+                            id="garuda"
+                            className="checkbox"
+                            onClick={(e) => {
+                              const searchQuery = {
+                                ...qs.parse(objectParams.search),
+                                airlineId: {
+                                  equals: item.id,
+                                },
+                              };
+
+                              setSearchParams({
+                                ...objectParams,
+                                search: qs.stringify(searchQuery),
+                              });
+                            }}
+                          />
+                        </div>
                       </div>
-                      <div className="d-flex justify-content-between">
-                        <label for="air">Air Asia</label>
-                        <input type="checkbox" className="checkbox" />
-                      </div>
-                      <div className="d-flex justify-content-between">
-                        <label for="lion">Lion Air</label>
-                        <input type="checkbox" id="lion" className="checkbox" />
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
