@@ -42,6 +42,11 @@ const SearchFlight = () => {
   const toastId = useRef(null);
   const getAll = useSelector((state) => state.ticket.get, shallowEqual);
   const zoneName = moment().locale("id");
+  const formatingDateTime = (value) => {
+    const dateNow = moment().format("YYYY-MM-DD");
+    const dateTimeNow = `${dateNow} ${value}`;
+    return new Date(dateTimeNow);
+  };
 
   const itemsPerPage = 6;
 
@@ -67,7 +72,7 @@ const SearchFlight = () => {
         })
       );
     }
-  }, []);
+  }, [searchParams]);
 
   useDidUpdate(() => {
     const toastOptions = {
@@ -449,29 +454,93 @@ const SearchFlight = () => {
                       <div className="d-flex justify-content-between">
                         <label for="dinihari">00:00 - 06:00</label>
                         <input
-                          type="checkbox"
+                          type="radio"
+                          name="departure"
                           id="dinihari"
                           className="checkbox"
+                          onClick={(e) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              departure: {
+                                gte: formatingDateTime("00:00"),
+                                lte: formatingDateTime("06:00"),
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+                          }}
                         />
                       </div>
                       <div className="d-flex justify-content-between">
                         <label for="pagi">06:00 - 12:00</label>
-                        <input type="checkbox" id="pagi" className="checkbox" />
+                        <input
+                          type="radio"
+                          name="departure"
+                          id="pagi"
+                          className="checkbox"
+                          onClick={(e) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              departure: {
+                                gte: formatingDateTime("06:00"),
+                                lte: formatingDateTime("12:00"),
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+                          }}
+                        />
                       </div>
                       <div className="d-flex justify-content-between">
                         <label for="siang">12:00 - 18:00</label>
                         <input
-                          type="checkbox"
+                          type="radio"
+                          name="departure"
                           id="siang"
                           className="checkbox"
+                          onClick={(e) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              departure: {
+                                gte: formatingDateTime("12:00"),
+                                lte: formatingDateTime("18:00"),
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+                          }}
                         />
                       </div>
                       <div className="d-flex justify-content-between">
                         <label for="malam">18:00 - 24:00</label>
                         <input
-                          type="checkbox"
+                          type="radio"
+                          name="departure"
                           id="malam"
                           className="checkbox"
+                          onClick={(e) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              departure: {
+                                gte: formatingDateTime("18:00"),
+                                lte: formatingDateTime("24:00"),
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+                          }}
                         />
                       </div>
                     </div>
@@ -501,33 +570,93 @@ const SearchFlight = () => {
                       <div className="d-flex justify-content-between">
                         <label for="diniharia">00:00 - 06:00</label>
                         <input
-                          type="checkbox"
+                          type="radio"
+                          name="arival"
                           id="diniharia"
                           className="checkbox"
+                          onClick={(e) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              arival: {
+                                gte: formatingDateTime("00:00"),
+                                lte: formatingDateTime("06:00"),
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+                          }}
                         />
                       </div>
                       <div className="d-flex justify-content-between">
                         <label for="pagia">06:00 - 12:00</label>
                         <input
-                          type="checkbox"
+                          type="radio"
+                          name="arival"
                           id="pagia"
                           className="checkbox"
+                          onClick={(e) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              arival: {
+                                gte: formatingDateTime("06:00"),
+                                lte: formatingDateTime("12:00"),
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+                          }}
                         />
                       </div>
                       <div className="d-flex justify-content-between">
                         <label for="sianga">12:00 - 18:00</label>
                         <input
-                          type="checkbox"
+                          type="radio"
+                          name="arival"
                           id="sianga"
                           className="checkbox"
+                          onClick={(e) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              arival: {
+                                gte: formatingDateTime("12:00"),
+                                lte: formatingDateTime("18:00"),
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+                          }}
                         />
                       </div>
                       <div className="d-flex justify-content-between">
                         <label for="malama">18:00 - 24:00</label>
                         <input
-                          type="checkbox"
+                          type="radio"
+                          name="arival"
                           id="malama"
                           className="checkbox"
+                          onClick={(e) => {
+                            const searchQuery = {
+                              ...qs.parse(objectParams.search),
+                              arival: {
+                                gte: formatingDateTime("18:00"),
+                                lte: formatingDateTime("24:00"),
+                              },
+                            };
+
+                            setSearchParams({
+                              ...objectParams,
+                              search: qs.stringify(searchQuery),
+                            });
+                          }}
                         />
                       </div>
                     </div>
@@ -581,7 +710,9 @@ const SearchFlight = () => {
             <div className="d-flex justify-content-between">
               <div className="d-flex align-items-center">
                 <h4>Select Ticket</h4>
-                <span className="ms-2 text-secondary">(6 Flight Found)</span>
+                <span className="ms-2 text-secondary">
+                  ({getAll.response?.length} Flight Found)
+                </span>
               </div>
               <div className="d-flex">
                 <strong>Sort by</strong>
@@ -664,7 +795,7 @@ const SearchFlight = () => {
                         className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target="#view"
+                        data-bs-target={`#view${index}`}
                         aria-expanded="false"
                         aria-controls="flush-collapseOne"
                       >
@@ -672,7 +803,7 @@ const SearchFlight = () => {
                       </button>
                     </h2>
                     <div
-                      id="view"
+                      id={`view${index}`}
                       className="accordion-collapse collapse"
                       aria-labelledby="flush-headingOne"
                       data-bs-parent="#accordionFlushExample"
@@ -681,10 +812,12 @@ const SearchFlight = () => {
                         <div className="d-flex justify-content-between">
                           <strong className="text-secondary mt-2">
                             {" "}
-                            3 hours 11 minutes{" "}
+                            {humanizeDuration(diffInSecond, {
+                              delimiter: " ",
+                            })}{" "}
                           </strong>
                           <p className="text-secondary text-center">
-                            (transit 1)
+                            ({item.transit})
                           </p>
                         </div>
                         <div className="d-flex justify-content-between">
@@ -703,7 +836,7 @@ const SearchFlight = () => {
                         <div className="d-flex justify-content-between">
                           <div className="mt-2">
                             <strong className="text-primary">
-                              $ 214,00{" "}
+                              $ {item.price}{" "}
                               <span className="text-secondary">/pax</span>
                             </strong>
                           </div>

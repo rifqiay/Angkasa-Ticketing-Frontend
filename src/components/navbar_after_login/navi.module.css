@@ -206,10 +206,20 @@
 
 .modal-trip > button:first-of-type:focus {
   box-shadow: 0 3px 4px rgb(35, 149, 255, 0.5);
+  background-color: #2395ff;
+  color: #ffffff;
+}
+
+.modal-trip > button:first-of-type:not(:focus) {
+  box-shadow: 0 3px 4px #d5dbe0;
+  background-color: #d5dbe0;
+  color: #000000;
 }
 
 .modal-trip > button:last-of-type:focus {
-  box-shadow: 0 3px 4px rgb(0, 0, 0, 0.25);
+  box-shadow: 0 3px 4px #2395ff;
+  background-color: #2395ff;
+  color: #ffffff;
 }
 
 .modal-ticket {
