@@ -16,9 +16,10 @@ const duration = new Duration(REACT_APP_REQUEST_TIMEOUT);
 axiosInstance.defaults.baseURL = REACT_APP_BACKEND_URL;
 axiosInstance.defaults.timeout = duration.milliseconds();
 axiosInstance.defaults.withCredentials = true;
-axiosInstance.defaults.paramsSerializer = {
-  serialize: (params = {}) => qs.stringify(params, { arrayFormat: "brackets" }),
-};
+axiosInstance.defaults.paramsSerializer = (params) =>
+  qs.stringify(params, {
+    arrayFormat: "brackets",
+  });
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -28,7 +29,7 @@ axiosInstance.interceptors.request.use(
 
     const token = localStorage.getItem("@acc_token");
 
-    if (token !== null) config.headers.Authorization = `Bearer ${token}`;
+    if (token !== null) config.headers.common.Authorization = `Bearer ${token}`;
 
     return config;
   },
