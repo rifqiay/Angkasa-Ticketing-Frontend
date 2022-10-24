@@ -30,7 +30,6 @@ const FlightDetail = () => {
   }, [id]);
 
   const handlePayment = (ticketId, data) => {
-    console.log(ticketId, data);
     dispatch(bookingTicketByIdActionCreator({ id: ticketId, data }));
     navigate("/my-booking");
   };

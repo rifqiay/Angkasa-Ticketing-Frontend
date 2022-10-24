@@ -121,8 +121,12 @@ const Profile = () => {
                     <img
                       src={!preview ? (ProfileGet?.response?.avatar || `https://avatars.dicebear.com/api/bottts/${ProfileGet?.response?.user?.email}.svg`) : preview}
                       alt="Avatar"
-                      width="50%"
-                      height="50%"
+                      style={{
+                        verticalAlign: 'middle',
+                        width: '170px',
+                        height: '170px',
+                        borderRadius: '50%'
+                      }}
                     />
                     <div className="mt-3"></div>
                     <input

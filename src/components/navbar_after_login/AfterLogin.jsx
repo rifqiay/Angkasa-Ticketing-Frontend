@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "../../components/buttonv2";
 import Logo from "../logo/Logo";
@@ -15,6 +15,8 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import qs from "qs";
 import { useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfileActionCreator } from "../../redux/action/creator/profile";
 
 const Navi = () => {
   const navigate = useNavigate();
@@ -36,6 +38,13 @@ const Navi = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const dispatch = useDispatch();
+  const ProfileGet = useSelector(state => state.profile.get)
+
+  useEffect(() => {
+    dispatch(getProfileActionCreator())
+  }, []);
 
   return (
     <>
@@ -360,7 +369,16 @@ const Navi = () => {
 
                   <div>
                     <Link to={"/profile"}>
-                      <img src={user} alt="" />
+                      <img
+                        src={ProfileGet?.response?.avatar || `https://avatars.dicebear.com/api/bottts/${ProfileGet?.response?.user?.email}.svg`}
+                        alt="Avatar"
+                        style={{
+                          verticalAlign: 'middle',
+                          width: '45px',
+                          height: '45px',
+                          borderRadius: '50%'
+                        }}
+                      />
                     </Link>
                   </div>
                 </div>
