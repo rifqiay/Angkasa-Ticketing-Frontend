@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import styles from "./mybooking.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,14 +6,57 @@ import UserLogo from "../../assets/images/profile/user.png";
 import Setting from "../../assets/images/profile/setting.png";
 import Rating from "../../assets/images/profile/rating.png";
 import LogOut from "../../assets/images/profile/logOut.png";
-import ImageProfile from "../../assets/images/profile/profile.png";
 import PlateImage from "../../assets/images/icons/plate.svg";
 import map from "../../assets/map-pin.svg";
 import ImageDetails from "../../assets/images/btnback.png";
-import { putProfileUser } from "../../app/redux/Slice/ProfileUserSlice";
-import axios from "axios";
+import { getProfileActionCreator } from "../../redux/action/creator/profile";
+import moment from "moment/moment";
+import { useNavigate } from "react-router-dom";
+import { logoutActionCreator } from "../../redux/action/creator/auth";
+import { useDidUpdate } from "@mantine/hooks";
+import { toast } from "react-toastify";
 
 const Mybooking = () => {
+  const dispatch = useDispatch();
+  const ProfileGet = useSelector(state => state.profile.get)
+  const zoneName = moment().locale("id");
+  const navigate = useNavigate();
+  const logout = useSelector(state => state.auth.logout)
+  const onLogout = () => dispatch(logoutActionCreator())
+  const toastId = useRef(null)
+
+  useDidUpdate(() => {
+    const toastOptions = {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    };
+
+    if (logout?.isPending) {
+      toast.dismiss(toastId.current)
+      toastId.current = toast.loading("Loading...", toastOptions)
+    }
+
+    if (logout?.isRejected) {
+      toast.dismiss(toastId.current)
+      toastId.current = toast.error(logout?.errorMessage, toastOptions)
+    }
+
+    if (logout?.isFulfilled) {
+      toast.dismiss(toastId.current)
+      toastId.current = toast.success("Succes log out, to access feature please sign in again", toastOptions)
+      navigate('/home', { replace: true })
+    }
+  }, [logout])
+
+  useEffect(() => {
+    dispatch(getProfileActionCreator())
+  }, []);
+
   return (
     <Fragment>
       <div className={styles.mybooking_background}>
@@ -22,16 +65,22 @@ const Mybooking = () => {
             <div className="col-lg-4 mt-4">
               <div className={styles.sect1}>
                 <div className=" text-center">
-                  <img src={ImageProfile} alt="imageProfile" />
+                  <img
+                    src={ProfileGet?.response?.avatar || `https://avatars.dicebear.com/api/bottts/${ProfileGet?.response?.user?.email}.svg`}
+                    alt="Avatar"
+                    style={{
+                      verticalAlign: 'middle',
+                      width: '170px',
+                      height: '170px',
+                      borderRadius: '50%'
+                    }}
+                  />
                   <div className="mt-3"></div>
-                  <button type="button"  className="btn btn-outline-primary">
-                    Select Photo
-                  </button>
-                  <h3 className="mt-4">Rifqi Ahmad Pratama</h3>
+                  <h3 className="mt-4">{ProfileGet?.response?.name}</h3>
                   <div  className="row">
                     <div className="col-md-6 offset-md-3 ">
                       <img src={map} alt="map" />
-                      <p>Bandung, Indonesia</p>
+                      <p>{ProfileGet?.response?.city}</p>
                     </div>
                   </div>
                 </div>
@@ -84,11 +133,11 @@ const Mybooking = () => {
                   </div>
                 </div>
                 <div className=" row justify-content-center mt-4">
-                  <div className="col-4">
+                  <div className="col-4" style={{ cursor: 'pointer' }} onClick={onLogout}>
                     <img src={LogOut} alt="userlogo" />
                   </div>
                   <div className="col-4">
-                    <p className="ms-2">Logout</p>
+                    <p className="ms-2" style={{ cursor: 'pointer' }} onClick={onLogout}>Logout</p>
                   </div>
                 </div>
               </div>
@@ -111,33 +160,40 @@ const Mybooking = () => {
                   </div>
                 </div>
               </form>
-              <form
-                id="form-edit-profile"
-                // onSubmit={handleUpdate}
-              >
-                <div className={styles.sect2}>
-                  <p>Monday, 20 July '20 - 12:33</p>
+              
+              {ProfileGet?.response?.user?.orders?.map((item, index) => (
+                <div key={index} className={styles.sect2}>
+                  <p>
+                    {moment(item.reservation.departure)
+                      .locale(zoneName)
+                      .format("MMMM Do YYYY, h:mm A")}{" "}
+                    -{" "}
+                    {moment(item.reservation.arival)
+                      .locale(zoneName)
+                      .format("LT")}
+                  </p>
                   <div className="d-flex">
-                    <h3>IDN</h3>
+                    <h3>{item.reservation.place_from}</h3>
                     <img className="ms-4" src={PlateImage} alt="PlateImage" />
-                    <h3 className="ms-4">IDN</h3>
+                    <h3 className="ms-4">{item.reservation.place_to}</h3>
                   </div>
-                  <p>Garuda Indonesia, AB-221</p>
+                  <p>{item.reservation.airline.title}</p>
                   <hr />
                   <div className="row justify-content-between">
                     <div className="col-2">
                       <p>Status</p>
                     </div>
                     <div className="col-7">
-                      <p>Waiting for paymant</p>
+                      <p>{item.status}</p>
                     </div>
                     <div
                       className="col-3 d-flex"
                       type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseWidthExample1"
-                      aria-expanded="false"
-                      aria-controls="collapseWidthExample1"
+                      onClick={() => navigate(`/booking/${item.id}`)}
+                      // data-bs-toggle="collapse"
+                      // data-bs-target="#collapseWidthExample1"
+                      // aria-expanded="false"
+                      // aria-controls="collapseWidthExample1"
                     >
                       <p className="text-primary">View Details</p>
                       <img
@@ -157,54 +213,8 @@ const Mybooking = () => {
                     </div>
                   </div>
                 </div>
-              </form>
-              <form
-                id="form-edit-profile"
-                // onSubmit={handleUpdate}
-              >
-                <div className={styles.sect2}>
-                  <p>Monday, 20 July '20 - 12:33</p>
-                  <div className="d-flex">
-                    <h3>IDN</h3>
-                    <img className="ms-4" src={PlateImage} alt="PlateImage" />
-                    <h3 className="ms-4">IDN</h3>
-                  </div>
-                  <p>Garuda Indonesia, AB-221</p>
-                  <hr />
-                  <div className="row justify-content-between">
-                    <div className="col-2">
-                      <p>Status</p>
-                    </div>
-                    <div className="col-7">
-                      <p>Etiket issued</p>
-                    </div>
-                    <div
-                      className="col-3 d-flex"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseWidthExample"
-                      aria-expanded="false"
-                      aria-controls="collapseWidthExample"
-                    >
-                      <p className="text-primary">View Details</p>
-                      <img
-                        src={ImageDetails}
-                        alt="ImageDetails"
-                        className={styles.ImageDetails}
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className="collapse collapse-vertical"
-                    id="collapseWidthExample"
-                  >
-                    <div className="card card body">
-                      This is some placeholder content for a horizontal
-                      collapse. It's hidden by default and shown when triggered.
-                    </div>
-                  </div>
-                </div>
-              </form>
+              ))}
+              
             </div>
           </div>
         </div>
