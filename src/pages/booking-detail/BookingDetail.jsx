@@ -1,6 +1,4 @@
 import React, { Fragment, useEffect } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import ImageGaruda from "../../assets/images/booking/garuda.png";
 import { QRCodeSVG } from "qrcode.react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,11 +25,8 @@ const BookingDetail = () => {
               <div className="card mt-5 mb-5">
                 <div className="card-header bg-white">
                   <div className="row justify-content-between mt-2">
-                    <div className="col-4">
+                    <div className="col-12">
                       <h2 className="card-title">Booking Pass</h2>
-                    </div>
-                    <div className="col-1">
-                      <BsThreeDotsVertical size={30} />
                     </div>
                   </div>
                 </div>
@@ -92,7 +87,13 @@ const BookingDetail = () => {
                         </div>
                       </div>
                       <div className="col d-flex align-items-center align-content-center justify-content-center p-5">
-                        <QRCodeSVG value={getById?.response?.ticketId} size={250} />
+                        {
+                          getById?.response?.status === 'PAID' ? (
+                            <QRCodeSVG value={getById?.response?.ticketId} size={250} />
+                          ) : (
+                            <QRCodeSVG value={getById?.response?.bookingId} size={250} />
+                          )
+                        }
                       </div>
                     </div>
                   </div>
